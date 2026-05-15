@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Report Title</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --text: #1d1d1f;
+      --muted: #73737a;
+      --line: #dedee3;
+      --soft: #f6f6f7;
+      --accent: #245f5a;
+      --warning: #8a5a00;
+    }
+
+    body {
+      margin: 0;
+      background: #fff;
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      line-height: 1.55;
+    }
+
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 72px 40px 96px;
+    }
+
+    header {
+      display: grid;
+      gap: 16px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 30px;
+      margin-bottom: 38px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 44px;
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      margin: 42px 0 16px;
+      font-size: 25px;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 24px 0 10px;
+      font-size: 18px;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0 0 14px;
+    }
+
+    .lede {
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 12px;
+      margin: 22px 0 0;
+    }
+
+    .metric {
+      padding: 15px 16px;
+      background: var(--soft);
+      border-radius: 8px;
+    }
+
+    .metric strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 22px;
+    }
+
+    .metric span,
+    .muted {
+      color: var(--muted);
+    }
+
+    .callout {
+      border-left: 3px solid var(--accent);
+      background: var(--soft);
+      padding: 14px 16px;
+      border-radius: 6px;
+    }
+
+    .warning {
+      border-left-color: var(--warning);
+    }
+
+    ul,
+    ol {
+      padding-left: 22px;
+    }
+
+    li {
+      margin: 6px 0;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      margin-top: 12px;
+    }
+
+    table {
+      width: 100%;
+      min-width: 720px;
+      border-collapse: collapse;
+      font-size: 15px;
+    }
+
+    th,
+    td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #fbfbfc;
+      font-weight: 700;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    a {
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Report Title</h1>
+      <p class="lede">One or two sentences explaining what was reviewed, why it matters, and the time period or source.</p>
+      <p class="muted">Generated YYYY-MM-DD HH:MM from Source Name</p>
+      <div class="summary" aria-label="Report summary">
+        <div class="metric">
+          <strong>12</strong>
+          <span>Total items</span>
+        </div>
+        <div class="metric">
+          <strong>3</strong>
+          <span>Need attention</span>
+        </div>
+        <div class="metric">
+          <strong>7</strong>
+          <span>Healthy</span>
+        </div>
+      </div>
+    </header>
+
+    <section aria-labelledby="executive-summary">
+      <h2 id="executive-summary">Executive Summary</h2>
+      <p>Write the plain-language summary here. Keep it short enough that a reader can understand the result before looking at tables.</p>
+      <div class="callout">
+        <strong>Main takeaway:</strong> Replace this with the highest-signal conclusion.
+      </div>
+    </section>
+
+    <section aria-labelledby="findings">
+      <h2 id="findings">Findings</h2>
+      <h3 id="finding-one">Finding One</h3>
+      <p>Describe the first finding, why it matters, and what evidence supports it.</p>
+
+      <h3 id="finding-two">Finding Two</h3>
+      <p>Describe the second finding. Keep each finding readable without requiring the table.</p>
+    </section>
+
+    <section aria-labelledby="details">
+      <h2 id="details">Details</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Status</th>
+              <th>Evidence</th>
+              <th>Next Step</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Example item</td>
+              <td>Review</td>
+              <td>Short evidence or source.</td>
+              <td>Clear next action.</td>
+            </tr>
+            <tr>
+              <td>Example item</td>
+              <td>Healthy</td>
+              <td>Short evidence or source.</td>
+              <td>No action needed.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section aria-labelledby="actions">
+      <h2 id="actions">Actions</h2>
+      <ol>
+        <li>First recommended action.</li>
+        <li>Second recommended action.</li>
+        <li>Optional follow-up or review date.</li>
+      </ol>
+    </section>
+
+    <section aria-labelledby="source-notes">
+      <h2 id="source-notes">Source Notes</h2>
+      <p class="muted">Document where the information came from, what was excluded, and any uncertainty.</p>
+    </section>
+  </main>
+</body>
+</html>
+

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dot-realitytest.github.io/HTMELLY/sitemap.xml

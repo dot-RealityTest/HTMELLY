@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Brief Title</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --text: #1d1d1f;
+      --muted: #6e6e73;
+      --line: #dedee3;
+      --soft: #f7f7f8;
+      --accent: #245f5a;
+    }
+
+    body {
+      margin: 0;
+      background: #fff;
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      line-height: 1.62;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 72px 40px 96px;
+    }
+
+    header {
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 28px;
+      margin-bottom: 36px;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: 42px;
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      margin: 42px 0 14px;
+      font-size: 24px;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 24px 0 8px;
+      font-size: 18px;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0 0 14px;
+    }
+
+    .lede {
+      max-width: 720px;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .note {
+      padding: 15px 16px;
+      background: var(--soft);
+      border-left: 3px solid var(--accent);
+      border-radius: 6px;
+      margin: 18px 0;
+    }
+
+    ul,
+    ol {
+      padding-left: 22px;
+    }
+
+    li {
+      margin: 6px 0;
+    }
+
+    blockquote {
+      margin: 18px 0;
+      padding: 0 0 0 18px;
+      border-left: 3px solid var(--line);
+      color: var(--muted);
+    }
+
+    code {
+      padding: 2px 5px;
+      border-radius: 5px;
+      background: var(--soft);
+      font-family: "SF Mono", Menlo, Consolas, monospace;
+      font-size: 0.92em;
+    }
+
+    a {
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Brief Title</h1>
+      <p class="lede">A short orientation paragraph: what this page is, who it is for, and what the reader should understand.</p>
+    </header>
+
+    <section aria-labelledby="summary">
+      <h2 id="summary">Summary</h2>
+      <p>Write the main point in normal language. This template works well for notes, blog previews, decisions, research summaries, project context, and handoff pages.</p>
+      <div class="note">
+        <strong>Best use:</strong> put the thing the reader needs first here.
+      </div>
+    </section>
+
+    <section aria-labelledby="context">
+      <h2 id="context">Context</h2>
+      <p>Explain the background. Keep it useful, not exhaustive.</p>
+    </section>
+
+    <section aria-labelledby="details">
+      <h2 id="details">Details</h2>
+      <h3 id="detail-one">Detail One</h3>
+      <p>Add details in short sections so HTTMELY contents navigation stays useful.</p>
+
+      <h3 id="detail-two">Detail Two</h3>
+      <p>Use lists, quotes, or examples when they make the page easier to scan.</p>
+      <ul>
+        <li>Replace with a real point.</li>
+        <li>Replace with a real point.</li>
+        <li>Replace with a real point.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="decisions">
+      <h2 id="decisions">Decisions</h2>
+      <p>Use this section only if the page records choices, conclusions, or direction.</p>
+    </section>
+
+    <section aria-labelledby="next">
+      <h2 id="next">Next</h2>
+      <ol>
+        <li>Next useful step.</li>
+        <li>Follow-up or owner.</li>
+      </ol>
+    </section>
+  </main>
+</body>
+</html>
+

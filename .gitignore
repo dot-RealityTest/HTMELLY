@@ -1,0 +1,27 @@
+.DS_Store
+
+# Build and package output
+.build/
+.swiftpm/
+viewer/.build/
+viewer/.swiftpm/
+viewer/dist/
+viewer/release/
+
+# Local agent/editor state
+.codex/
+viewer/.codex/
+viewer/.git/
+viewer/.git-local-history/
+
+# Generated private report data
+reports/*
+!reports/README.md
+!reports/.gitkeep
+reports/archive/
+
+# Internal continuity notes
+chat/
+docs/internal/
+docs/MAINTENANCE.md
+docs/CREATING_REPORTS.md
