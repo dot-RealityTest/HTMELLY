@@ -4,17 +4,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>HTTMELY - Local HTML and Markdown Folder Reader for macOS</title>
-  <meta name="description" content="HTTMELY is a local-first macOS app for reading folders of HTML and Markdown pages in a quiet native reader.">
+  <meta name="description" content="HTTMELY helps macOS users turn local HTML and Markdown folders into a calm native reader without uploads, accounts, or Finder chaos.">
   <link rel="canonical" href="https://dot-realitytest.github.io/HTMELLY/">
   <meta property="og:title" content="HTTMELY - Local HTML and Markdown Folder Reader">
-  <meta property="og:description" content="Open local HTML and Markdown folders as calm native macOS page collections. No cloud, no accounts, no uploads.">
+  <meta property="og:description" content="Turn local reports, saved websites, notes, docs, and Design.md collections into a quiet native macOS reader.">
   <meta property="og:url" content="https://dot-realitytest.github.io/HTMELLY/">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="https://dot-realitytest.github.io/HTMELLY/assets/htmelly-welcome.png">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:image" content="https://dot-realitytest.github.io/HTMELLY/assets/htmelly-welcome-window.png">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="HTTMELY">
-  <meta name="twitter:description" content="A local-first macOS reader for HTML and Markdown folders.">
-  <meta name="twitter:image" content="https://dot-realitytest.github.io/HTMELLY/assets/htmelly-welcome.png">
+  <meta name="twitter:description" content="A local-first macOS reader for HTML and Markdown folder collections.">
+  <meta name="twitter:image" content="https://dot-realitytest.github.io/HTMELLY/assets/htmelly-welcome-window.png">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -32,198 +32,563 @@
   <style>
     :root {
       color-scheme: light;
-      --ink: #151820;
-      --muted: #616975;
-      --line: #dfe3dd;
-      --paper: #fbfbf8;
-      --panel: #ffffff;
-      --accent: #2f615c;
-      --accent-2: #8b5e3c;
+      --paper: #d7d7d7;
+      --paper-soft: #ededeb;
+      --panel: #f8f8f6;
+      --ink: #15171d;
+      --text: #3e434b;
+      --muted: #737984;
+      --line: rgba(21, 23, 29, 0.12);
+      --blue: #6d80a6;
+      --blue-dark: #42506b;
+      --sage: #66766f;
+      --amber: #a07145;
+      --shadow: 0 22px 60px rgba(21, 23, 29, 0.18);
+      --radius: 8px;
+      --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", sans-serif;
     }
-    * { box-sizing: border-box; }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+    }
+
     body {
-      margin: 0;
       background: var(--paper);
-      color: var(--ink);
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+      color: var(--text);
+      font-family: var(--font);
       font-size: 16px;
-      line-height: 1.55;
+      line-height: 1.6;
+      margin: 0;
     }
-    a { color: var(--accent); }
+
+    a {
+      color: var(--blue-dark);
+      text-decoration-color: rgba(109, 128, 166, 0.42);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 3px solid rgba(109, 128, 166, 0.52);
+      outline-offset: 4px;
+    }
+
     .wrap {
-      width: min(1080px, calc(100% - 40px));
       margin: 0 auto;
+      max-width: 1120px;
+      width: min(1120px, calc(100% - 40px));
     }
-    header {
+
+    .site-header {
+      backdrop-filter: blur(22px) saturate(1.2);
+      -webkit-backdrop-filter: blur(22px) saturate(1.2);
+      background: rgba(215, 215, 215, 0.84);
       border-bottom: 1px solid var(--line);
-      background: rgba(251, 251, 248, 0.92);
-      position: sticky;
+      left: 0;
+      position: fixed;
+      right: 0;
       top: 0;
-      z-index: 2;
+      z-index: 30;
     }
-    nav {
-      min-height: 58px;
-      display: flex;
+
+    .nav {
       align-items: center;
+      display: flex;
       justify-content: space-between;
-      gap: 18px;
+      min-height: 62px;
     }
+
     .brand {
-      display: flex;
       align-items: center;
-      gap: 10px;
       color: var(--ink);
-      font-weight: 720;
+      display: inline-flex;
+      font-size: 12px;
+      font-weight: 900;
+      gap: 10px;
+      letter-spacing: 0.24em;
       text-decoration: none;
+      text-transform: uppercase;
     }
+
     .brand img {
-      width: 28px;
-      height: 28px;
       border-radius: 7px;
+      height: 28px;
+      width: 28px;
     }
-    .links {
+
+    .nav-links {
+      align-items: center;
       display: flex;
-      align-items: center;
-      gap: 16px;
-      font-size: 14px;
+      gap: 18px;
+      font-size: 13px;
+      font-weight: 650;
     }
-    .links a {
-      color: var(--muted);
+
+    .nav-links a {
+      color: var(--text);
       text-decoration: none;
+      transition: color 180ms ease;
     }
+
+    .nav-links a:hover {
+      color: var(--ink);
+    }
+
     .hero {
-      padding: 74px 0 46px;
+      background-image: url("assets/htmelly-welcome-window.png");
+      background-position: center;
+      background-size: cover;
+      min-height: 88vh;
+      padding: 118px 0 72px;
+      position: relative;
     }
-    .hero-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 330px;
+
+    .hero::before {
+      background: rgba(215, 215, 215, 0.84);
+      content: "";
+      inset: 0;
+      position: absolute;
+    }
+
+    .hero .wrap {
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
       align-items: center;
-      gap: 54px;
+      color: var(--blue-dark);
+      display: inline-flex;
+      font-size: 10px;
+      font-weight: 850;
+      gap: 12px;
+      letter-spacing: 0.22em;
+      margin: 0 0 24px;
+      text-transform: uppercase;
     }
+
+    .eyebrow::before {
+      background: var(--blue);
+      content: "";
+      height: 3px;
+      width: 54px;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
     h1 {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", sans-serif;
-      font-size: 54px;
-      line-height: 1.02;
+      color: var(--ink);
+      font-size: clamp(4rem, 11vw, 9rem);
+      font-weight: 950;
       letter-spacing: 0;
-      margin: 0 0 18px;
+      line-height: 0.88;
+      margin-bottom: 22px;
+      max-width: 820px;
     }
-    .lede {
-      color: #404853;
-      font-size: 19px;
-      max-width: 680px;
-      margin: 0 0 28px;
+
+    .hero-copy {
+      border-left: 3px solid var(--blue);
+      color: #2f343b;
+      font-size: clamp(1.15rem, 2vw, 1.55rem);
+      line-height: 1.48;
+      max-width: 760px;
+      padding-left: 22px;
     }
-    .actions {
+
+    .hero-actions,
+    .section-actions {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
+      margin-top: 28px;
     }
+
     .button {
       align-items: center;
+      background: rgba(248, 248, 246, 0.84);
       border: 1px solid var(--line);
-      border-radius: 8px;
+      border-radius: var(--radius);
       color: var(--ink);
       display: inline-flex;
-      min-height: 42px;
-      padding: 0 15px;
+      font-size: 14px;
+      font-weight: 760;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 16px;
       text-decoration: none;
-      background: var(--panel);
-      font-weight: 650;
+      transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
     }
+
+    .button:hover {
+      background: #fff;
+      border-color: rgba(21, 23, 29, 0.2);
+    }
+
     .button.primary {
-      background: var(--accent);
-      border-color: var(--accent);
+      background: var(--ink);
+      border-color: var(--ink);
       color: #fff;
     }
-    .preview {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 22px;
-      box-shadow: 0 18px 50px rgba(21, 24, 32, 0.08);
+
+    .button.primary:hover {
+      background: var(--blue-dark);
+      border-color: var(--blue-dark);
     }
-    .preview img {
-      width: 100%;
-      height: auto;
-      border-radius: 8px;
-      display: block;
-      margin-bottom: 20px;
-    }
-    .file-list {
-      border-top: 1px solid var(--line);
-      margin-top: 18px;
-      padding-top: 14px;
-      color: var(--muted);
-      font-family: "SF Mono", ui-monospace, Menlo, monospace;
-      font-size: 13px;
-    }
-    section {
-      border-top: 1px solid var(--line);
-      padding: 40px 0;
-    }
-    h2 {
-      font-size: 25px;
-      line-height: 1.18;
-      margin: 0 0 18px;
-    }
-    .features {
-      display: grid;
-      gap: 14px;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-    .feature {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 18px;
-    }
-    .feature h3 {
-      font-size: 16px;
-      margin: 0 0 8px;
-    }
-    .feature p {
-      color: var(--muted);
-      font-size: 14px;
-      margin: 0;
-    }
-    .meta {
+
+    .hero-proof {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      color: var(--muted);
-      font-size: 14px;
+      margin-top: 44px;
     }
-    .pill {
+
+    .proof-pill {
+      background: rgba(248, 248, 246, 0.74);
       border: 1px solid var(--line);
       border-radius: 999px;
-      padding: 6px 10px;
-      background: #fff;
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 680;
+      padding: 8px 12px;
     }
-    footer {
+
+    .band {
+      border-top: 1px solid var(--line);
+      padding: 74px 0;
+    }
+
+    .band.light {
+      background: var(--paper-soft);
+    }
+
+    .section-head {
+      align-items: end;
+      display: grid;
+      gap: 24px;
+      grid-template-columns: minmax(0, 0.85fr) minmax(280px, 0.55fr);
+      margin-bottom: 34px;
+    }
+
+    .section-label {
+      color: var(--blue-dark);
+      display: block;
+      font-size: 10px;
+      font-weight: 850;
+      letter-spacing: 0.24em;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      color: var(--ink);
+      font-size: clamp(2rem, 4vw, 4.2rem);
+      font-weight: 920;
+      letter-spacing: 0;
+      line-height: 0.98;
+      margin-bottom: 0;
+    }
+
+    .section-lede {
+      color: var(--text);
+      font-size: 1.06rem;
+      margin-bottom: 0;
+    }
+
+    .shot-stage {
+      margin-top: -18px;
+      position: relative;
+    }
+
+    .window-shot {
+      background: rgba(248, 248, 246, 0.72);
+      border: 1px solid rgba(21, 23, 29, 0.14);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      display: block;
+      height: auto;
+      width: 100%;
+    }
+
+    .shot-caption {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 16px 0 0;
+      text-align: center;
+    }
+
+    .use-grid,
+    .feature-grid,
+    .faq-grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .use-card,
+    .feature-card,
+    .faq-card {
+      background: rgba(248, 248, 246, 0.76);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+
+    .use-card {
+      min-height: 230px;
+    }
+
+    .card-kicker {
+      color: var(--blue-dark);
+      display: block;
+      font-size: 10px;
+      font-weight: 850;
+      letter-spacing: 0.18em;
+      margin-bottom: 18px;
+      text-transform: uppercase;
+    }
+
+    h3 {
+      color: var(--ink);
+      font-size: 1.2rem;
+      line-height: 1.15;
+      margin-bottom: 10px;
+    }
+
+    .use-card p,
+    .feature-card p,
+    .faq-card p {
+      color: var(--text);
+      font-size: 0.95rem;
+      margin-bottom: 0;
+    }
+
+    .feature-card {
+      min-height: 176px;
+    }
+
+    .feature-number {
+      color: var(--blue);
+      display: block;
+      font-size: 1.9rem;
+      font-weight: 920;
+      line-height: 1;
+      margin-bottom: 18px;
+    }
+
+    .split {
+      align-items: center;
+      display: grid;
+      gap: 44px;
+      grid-template-columns: minmax(0, 0.68fr) minmax(320px, 0.52fr);
+    }
+
+    .copy-block p {
+      font-size: 1.04rem;
+      max-width: 620px;
+    }
+
+    .quiet-list {
+      list-style: none;
+      margin: 24px 0 0;
+      padding: 0;
+    }
+
+    .quiet-list li {
+      border-top: 1px solid var(--line);
+      color: var(--text);
+      padding: 13px 0;
+    }
+
+    .quiet-list strong {
+      color: var(--ink);
+    }
+
+    .gallery {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: 1.25fr 0.9fr;
+    }
+
+    .gallery-side {
+      display: grid;
+      gap: 18px;
+    }
+
+    .gallery figure {
+      margin: 0;
+    }
+
+    .gallery img {
+      border: 1px solid rgba(21, 23, 29, 0.14);
+      border-radius: 14px;
+      box-shadow: 0 16px 44px rgba(21, 23, 29, 0.12);
+      display: block;
+      height: auto;
+      width: 100%;
+    }
+
+    .gallery figcaption {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 9px;
+    }
+
+    .release-box {
+      background: var(--ink);
+      border-radius: 14px;
+      color: #fff;
+      padding: 32px;
+    }
+
+    .release-box h2,
+    .release-box p,
+    .release-box code {
+      color: #fff;
+    }
+
+    .release-box code {
+      overflow-wrap: anywhere;
+    }
+
+    .release-box .button {
+      background: #fff;
+      color: var(--ink);
+    }
+
+    .trust-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .trust-pill {
+      background: rgba(109, 128, 166, 0.13);
+      border: 1px solid rgba(109, 128, 166, 0.22);
+      border-radius: 999px;
+      color: var(--blue-dark);
+      font-size: 13px;
+      font-weight: 760;
+      padding: 8px 11px;
+    }
+
+    .footer {
       border-top: 1px solid var(--line);
       color: var(--muted);
       font-size: 14px;
-      padding: 26px 0 40px;
+      padding: 30px 0 44px;
     }
-    @media (max-width: 820px) {
-      .hero-grid { grid-template-columns: 1fr; }
-      h1 { font-size: 42px; }
-      .features { grid-template-columns: 1fr; }
-      nav { align-items: flex-start; flex-direction: column; padding: 14px 0; }
-      .links { flex-wrap: wrap; }
+
+    .footer .wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: space-between;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    @media (max-width: 920px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 14px 0;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+      }
+
+      .hero {
+        min-height: 82vh;
+        padding-top: 148px;
+      }
+
+      .section-head,
+      .split,
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .use-grid,
+      .feature-grid,
+      .faq-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .wrap {
+        width: min(100% - 28px, 1120px);
+      }
+
+      .nav-links {
+        gap: 10px;
+        font-size: 12px;
+      }
+
+      h1 {
+        font-size: clamp(3.3rem, 18vw, 5rem);
+      }
+
+      .hero-copy {
+        font-size: 1.04rem;
+      }
+
+      .hero::before {
+        background: rgba(215, 215, 215, 0.9);
+      }
+
+      .band {
+        padding: 54px 0;
+      }
+
+      .release-box {
+        padding: 22px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition-duration: 0.01ms !important;
+      }
     }
   </style>
 </head>
 <body>
-  <header>
-    <nav class="wrap">
+  <header class="site-header">
+    <nav class="nav wrap" aria-label="Primary navigation">
       <a class="brand" href="https://github.com/dot-RealityTest/HTMELLY">
         <img src="assets/htmelly-icon.png" alt="">
         HTTMELY
       </a>
-      <div class="links">
-        <a href="overview.md">Overview</a>
-        <a href="user/GETTING_STARTED.md">Guide</a>
+      <div class="nav-links">
+        <a href="#use-cases">Use Cases</a>
+        <a href="#screenshots">Screenshots</a>
+        <a href="#privacy">Privacy</a>
         <a href="release-notes.md">Release</a>
         <a href="llms.txt">llms.txt</a>
         <a href="https://github.com/dot-RealityTest/HTMELLY">GitHub</a>
@@ -232,81 +597,209 @@
   </header>
 
   <main>
-    <div class="hero wrap">
-      <div class="hero-grid">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="wrap">
+        <p class="eyebrow">Local page collections for macOS</p>
+        <h1 id="hero-title">HTTMELY</h1>
+        <p class="hero-copy">HTTMELY helps macOS users turn folders of HTML and Markdown into a calm native reader without uploads, accounts, or losing context in Finder.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="https://github.com/dot-RealityTest/HTMELLY/releases/download/v1.0.0/HTTMELY-1.0.0.dmg">Download notarized DMG</a>
+          <a class="button" href="https://github.com/dot-RealityTest/HTMELLY">View source</a>
+        </div>
+        <div class="hero-proof" aria-label="Release facts">
+          <span class="proof-pill">macOS 14+</span>
+          <span class="proof-pill">Signed and notarized</span>
+          <span class="proof-pill">No cloud account</span>
+          <span class="proof-pill">HTML and Markdown folders</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="band light" aria-labelledby="problem-title">
+      <div class="wrap section-head">
         <div>
-          <h1>HTTMELY</h1>
-          <p class="lede">A local-first macOS reader for folders of HTML and Markdown pages. Add a folder, switch Places, read quietly, and keep everything on your Mac.</p>
-          <div class="actions">
-            <a class="button primary" href="https://github.com/dot-RealityTest/HTMELLY/releases/download/v1.0.0/HTTMELY-1.0.0.dmg">Download for macOS</a>
-            <a class="button" href="https://github.com/dot-RealityTest/HTMELLY">View on GitHub</a>
-          </div>
+          <span class="section-label">The Problem</span>
+          <h2 id="problem-title">Useful work often ends as local files.</h2>
         </div>
-        <div class="preview" aria-label="HTTMELY app preview">
-          <img src="assets/htmelly-welcome.png" alt="HTTMELY showing a local Welcome page collection">
-          <strong>Local page collections</strong>
-          <div class="file-list">
-            Welcome guide<br>
-            Daily reports<br>
-            Saved sites<br>
-            Design.md collections
-          </div>
-        </div>
+        <p class="section-lede">Reports, saved websites, design notes, exports, drafts, and generated docs can become hard to revisit. HTTMELY gives those folders a focused place to live.</p>
       </div>
-    </div>
+      <div class="wrap shot-stage">
+        <img class="window-shot" src="assets/htmelly-reports-overview.png" alt="HTTMELY showing a local reports overview with developer apps and package tables">
+        <p class="shot-caption">Local reports stay readable as normal HTML files, with the app providing the native shell around them.</p>
+      </div>
+    </section>
 
-    <section>
-      <div class="wrap features">
-        <div class="feature">
-          <h3>Open Local Folders</h3>
-          <p>Browse .html, .htm, .md, and .markdown files without moving them or uploading them.</p>
+    <section id="use-cases" class="band" aria-labelledby="use-cases-title">
+      <div class="wrap section-head">
+        <div>
+          <span class="section-label">Who It Helps</span>
+          <h2 id="use-cases-title">One reader, several local workflows.</h2>
         </div>
-        <div class="feature">
-          <h3>Save Places</h3>
-          <p>Keep multiple folder shortcuts, rename them for clarity, and switch between page collections quickly.</p>
+        <p class="section-lede">The landing story follows the custom-page idea: each audience gets a different reason to care, but the app stays simple.</p>
+      </div>
+      <div class="wrap use-grid">
+        <article class="use-card">
+          <span class="card-kicker">Daily Operators</span>
+          <h3>Review reports without a dashboard.</h3>
+          <p>Turn app exports, task notes, audit output, and daily summaries into a local timeline you can open anytime.</p>
+        </article>
+        <article class="use-card">
+          <span class="card-kicker">Writers And Researchers</span>
+          <h3>Browse drafts like a small library.</h3>
+          <p>Keep blog queues, saved pages, source notes, and reference packets together without publishing them first.</p>
+        </article>
+        <article class="use-card">
+          <span class="card-kicker">Design Builders</span>
+          <h3>Collect Design.md studies locally.</h3>
+          <p>Save screenshots, token files, typography notes, component observations, and design references in one folder.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="band light" aria-labelledby="how-title">
+      <div class="wrap split">
+        <div class="copy-block">
+          <span class="section-label">How It Works</span>
+          <h2 id="how-title">Point it at a folder. Read.</h2>
+          <p>HTTMELY does not ask you to migrate your content. It reads the files you already have, remembers folder shortcuts as Places, and lets you move between local collections.</p>
+          <ul class="quiet-list">
+            <li><strong>1. Choose a folder.</strong> Use any folder with HTML or Markdown pages.</li>
+            <li><strong>2. Save it as a Place.</strong> Rename and reorder shortcuts without touching the real files.</li>
+            <li><strong>3. Read in a native shell.</strong> Use the sidebar, page list, and optional contents panel.</li>
+          </ul>
         </div>
-        <div class="feature">
-          <h3>Read Quietly</h3>
-          <p>Use a native sidebar, page list, and optional contents panel built around local files.</p>
+        <img class="window-shot" src="assets/htmelly-welcome-window.png" alt="HTTMELY showing the bundled Welcome collection with use case tiles">
+      </div>
+    </section>
+
+    <section id="screenshots" class="band" aria-labelledby="screenshots-title">
+      <div class="wrap section-head">
+        <div>
+          <span class="section-label">Screenshots</span>
+          <h2 id="screenshots-title">Real pages, not mockups.</h2>
         </div>
-        <div class="feature">
-          <h3>Start With Examples</h3>
-          <p>Use the bundled Welcome collection for blog queues, daily reports, saved websites, Design.md studies, and project packets.</p>
+        <p class="section-lede">The app is intentionally quiet. The content leads; HTTMELY gives it structure, navigation, and a native macOS home.</p>
+      </div>
+      <div class="wrap gallery">
+        <figure>
+          <img src="assets/htmelly-design-md.png" alt="HTTMELY showing a Design.md collection page">
+          <figcaption>Design.md collections for tokens, screenshots, notes, and references.</figcaption>
+        </figure>
+        <div class="gallery-side">
+          <figure>
+            <img src="assets/htmelly-saved-sites.png" alt="HTTMELY showing a Saved Sites page">
+            <figcaption>Saved websites become a browsable local library.</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/htmelly-reports-overview.png" alt="HTTMELY showing generated local report tables">
+            <figcaption>Reports stay local and readable without a hosted dashboard.</figcaption>
+          </figure>
         </div>
       </div>
     </section>
 
-    <section>
-      <div class="wrap">
-        <h2>Notarized macOS Release</h2>
-        <p>HTTMELY 1.0.0 is signed with Developer ID, notarized by Apple, and stapled for Gatekeeper.</p>
-        <p><strong>SHA-256:</strong> <code>7af405aab916603d1d765349b8a112abb986017325b97fb26d4519a4a45e356e</code></p>
-        <p><a class="button primary" href="https://github.com/dot-RealityTest/HTMELLY/releases/download/v1.0.0/HTTMELY-1.0.0.dmg">Download HTTMELY-1.0.0.dmg</a></p>
+    <section class="band light" aria-labelledby="features-title">
+      <div class="wrap section-head">
+        <div>
+          <span class="section-label">Core Features</span>
+          <h2 id="features-title">Small surface, useful details.</h2>
+        </div>
+        <p class="section-lede">HTTMELY stays focused on reading local page folders well.</p>
+      </div>
+      <div class="wrap feature-grid">
+        <article class="feature-card">
+          <span class="feature-number">01</span>
+          <h3>Folder-backed Places</h3>
+          <p>Save multiple local folders and switch between them without moving your files.</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-number">02</span>
+          <h3>HTML and Markdown</h3>
+          <p>Open .html, .htm, .md, and .markdown files as local page collections.</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-number">03</span>
+          <h3>Native Navigation</h3>
+          <p>Use sidebar navigation, page selection, back/forward, reload, and optional contents.</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-number">04</span>
+          <h3>Welcome Examples</h3>
+          <p>Start with examples for blogs, daily reports, saved sites, Design.md, and project packets.</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-number">05</span>
+          <h3>Finder Friendly</h3>
+          <p>Reveal source folders, open selected files, export collections, and write archive copies.</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-number">06</span>
+          <h3>Local State Only</h3>
+          <p>Places and UI preferences stay in local user defaults on your Mac.</p>
+        </article>
       </div>
     </section>
 
-    <section>
-      <div class="wrap">
-        <h2>Local-First Contract</h2>
-        <p>HTTMELY does not add cloud sync, analytics, uploads, accounts, remote databases, or external services. Folder shortcuts and UI state stay in local user defaults.</p>
-        <div class="meta">
-          <span class="pill">SwiftPM</span>
-          <span class="pill">AppKit</span>
-          <span class="pill">WKWebView</span>
-          <span class="pill">macOS 14+</span>
-          <span class="pill">MIT License</span>
+    <section id="privacy" class="band" aria-labelledby="privacy-title">
+      <div class="wrap split">
+        <div class="copy-block">
+          <span class="section-label">Trust And Privacy</span>
+          <h2 id="privacy-title">No upload step. No account layer.</h2>
+          <p>HTTMELY is a local reader. It does not add cloud sync, analytics, accounts, remote databases, or hosted storage.</p>
+          <div class="trust-row">
+            <span class="trust-pill">Local-first</span>
+            <span class="trust-pill">No analytics</span>
+            <span class="trust-pill">No account</span>
+            <span class="trust-pill">MIT licensed</span>
+          </div>
         </div>
+        <div class="release-box">
+          <span class="section-label">Release</span>
+          <h2>HTTMELY 1.0.0</h2>
+          <p>Signed with Developer ID, notarized by Apple, and stapled for Gatekeeper.</p>
+          <p><strong>SHA-256</strong><br><code>7af405aab916603d1d765349b8a112abb986017325b97fb26d4519a4a45e356e</code></p>
+          <div class="section-actions">
+            <a class="button" href="https://github.com/dot-RealityTest/HTMELLY/releases/download/v1.0.0/HTTMELY-1.0.0.dmg">Download DMG</a>
+            <a class="button" href="release-notes.md">Release notes</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band light" aria-labelledby="faq-title">
+      <div class="wrap section-head">
+        <div>
+          <span class="section-label">FAQ</span>
+          <h2 id="faq-title">Plain answers.</h2>
+        </div>
+      </div>
+      <div class="wrap faq-grid">
+        <article class="faq-card">
+          <h3>Is this a reports app?</h3>
+          <p>No. Reports are one great use case. HTTMELY is a general reader for local HTML and Markdown folders.</p>
+        </article>
+        <article class="faq-card">
+          <h3>Does it change my files?</h3>
+          <p>Reading and saving Places does not move or rewrite your source files. Export and archive actions are explicit.</p>
+        </article>
+        <article class="faq-card">
+          <h3>Can AI tools write pages for it?</h3>
+          <p>Yes. Any script or assistant can generate local HTML or Markdown. HTTMELY just opens the folder.</p>
+        </article>
       </div>
     </section>
   </main>
 
-  <footer>
+  <footer class="footer">
     <div class="wrap">
-      <a href="overview.md">Overview</a> ·
-      <a href="release-notes.md">Release Notes</a> ·
-      <a href="user/LOCAL_FIRST_PRIVACY.md">Privacy</a> ·
-      <a href="sitemap.xml">Sitemap</a> ·
-      <a href="https://github.com/dot-RealityTest/HTMELLY">GitHub</a>
+      <span>HTTMELY - local page collections for macOS.</span>
+      <div class="footer-links">
+        <a href="overview.md">Overview</a>
+        <a href="user/GETTING_STARTED.md">Guide</a>
+        <a href="user/LOCAL_FIRST_PRIVACY.md">Privacy</a>
+        <a href="sitemap.xml">Sitemap</a>
+        <a href="https://github.com/dot-RealityTest/HTMELLY">GitHub</a>
+      </div>
     </div>
   </footer>
 </body>
