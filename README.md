@@ -43,6 +43,7 @@ make verify
 - Includes ready-to-use starter ideas for blog queues, daily reports, saved websites, Design.md collections, and project packets.
 - Saves multiple local folder shortcuts as Places.
 - Shows a native sidebar with place switching and page selection.
+- Filters folder sidebars to show all pages, HTML only, or Markdown only.
 - Adds optional in-page contents navigation from headings.
 - Opens or reveals source files in Finder.
 - Renames, reorders, and removes folder shortcuts without changing files on disk.

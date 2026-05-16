@@ -29,6 +29,7 @@ HTTMELY stores the folder shortcut locally. It does not move or upload your file
 
 - Use the sidebar place picker to switch folders.
 - Use the sidebar page list to open a page.
+- In folder Places, use the sidebar file filter or `View > Folder Files` to show all pages, HTML only, or Markdown only.
 - Use the bottom sidebar icons for previous page, next page, contents, and reload.
 - Use `View > Contents` to show or hide in-page contents navigation.
 - Right-click a page to open it externally or reveal it in Finder.

@@ -29,6 +29,56 @@ enum SourceMode: Equatable {
     case folder(String)
 }
 
+enum SidebarFileFilter: String, CaseIterable {
+    case all
+    case html
+    case markdown
+
+    var title: String {
+        switch self {
+        case .all:
+            return "All Pages"
+        case .html:
+            return "HTML Only"
+        case .markdown:
+            return "Markdown Only"
+        }
+    }
+
+    var menuTitle: String {
+        switch self {
+        case .all:
+            return "Show All Pages"
+        case .html:
+            return "Show HTML Only"
+        case .markdown:
+            return "Show Markdown Only"
+        }
+    }
+
+    var emptyMessage: String {
+        switch self {
+        case .all:
+            return "No HTML or Markdown files found in this folder."
+        case .html:
+            return "No HTML files found in this folder."
+        case .markdown:
+            return "No Markdown files found in this folder."
+        }
+    }
+
+    func includes(pathExtension: String) -> Bool {
+        switch self {
+        case .all:
+            return ["html", "htm", "md", "markdown"].contains(pathExtension)
+        case .html:
+            return ["html", "htm"].contains(pathExtension)
+        case .markdown:
+            return ["md", "markdown"].contains(pathExtension)
+        }
+    }
+}
+
 @MainActor
 final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
     private let appDisplayName = "HTTMELY"
@@ -44,6 +94,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
     private var sidebarSubtitleLabel: NSTextField!
     private var sidebarItemStack: NSStackView!
     private var placesPopup: NSPopUpButton!
+    private var fileFilterPopup: NSPopUpButton!
+    private var fileFilterContainer: NSView!
     private var contentsButton: NSButton?
     private var titleLabel: NSTextField!
     private var subtitleLabel: NSTextField!
@@ -52,6 +104,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
     private var welcomeModeMenuItem: NSMenuItem?
     private var reportsModeMenuItem: NSMenuItem?
     private var folderModeMenuItems: [String: NSMenuItem] = [:]
+    private var fileFilterMenuItems: [SidebarFileFilter: NSMenuItem] = [:]
     private var topBarMenuItem: NSMenuItem?
     private var placesManagerWindow: NSWindow?
     private var placesManagerTableView: NSTableView?
@@ -59,6 +112,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
     private var keyMonitor: Any?
     private var selectedReport: Report?
     private var sourceMode: SourceMode = .welcome
+    private var sidebarFileFilter: SidebarFileFilter = .all
     private var folderModes: [FolderMode] = []
     private var currentItems: [Report] = []
     private var currentReadRoot: URL!
@@ -76,6 +130,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
     private let contentsVisibleDefaultsKey = "HTTMELY.contentsVisible"
     private let topBarVisibleDefaultsKey = "HTTMELY.topBarVisible"
     private let lastSourceModeDefaultsKey = "HTTMELY.lastSourceMode"
+    private let sidebarFileFilterDefaultsKey = "HTTMELY.sidebarFileFilter"
     private let windowFrameAutosaveName = NSWindow.FrameAutosaveName("HTTMELY.mainWindow")
 
     func applicationDidFinishLaunching(_ notification: Notification) {
@@ -121,6 +176,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
             return hasMultipleReports
         case #selector(reloadReport):
             return hasReports || hasCurrentFolder
+        case #selector(fileFilterMenuChanged(_:)):
+            return isFolderMode
         case #selector(renameCurrentFolderMode),
              #selector(moveCurrentFolderModeUp),
              #selector(moveCurrentFolderModeDown),
@@ -334,6 +391,21 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
         topBarMenuItem = toggleTopBar
         viewMenu.addItem(toggleTopBar)
 
+        viewMenu.addItem(.separator())
+
+        let fileFilterItem = NSMenuItem(title: "Folder Files", action: nil, keyEquivalent: "")
+        let fileFilterMenu = NSMenu(title: "Folder Files")
+        fileFilterMenuItems.removeAll()
+        for filter in SidebarFileFilter.allCases {
+            let item = NSMenuItem(title: filter.menuTitle, action: #selector(fileFilterMenuChanged(_:)), keyEquivalent: "")
+            item.target = self
+            item.representedObject = filter.rawValue
+            fileFilterMenuItems[filter] = item
+            fileFilterMenu.addItem(item)
+        }
+        fileFilterItem.submenu = fileFilterMenu
+        viewMenu.addItem(fileFilterItem)
+
         viewMenuItem.submenu = viewMenu
 
         let placesMenuItem = NSMenuItem()
@@ -485,7 +557,21 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
         ])
 
         stack.addArrangedSubview(placePickerContainer)
-        stack.setCustomSpacing(18, after: placePickerContainer)
+
+        fileFilterPopup = buildFileFilterPopup()
+        fileFilterContainer = NSView()
+        fileFilterContainer.translatesAutoresizingMaskIntoConstraints = false
+        fileFilterContainer.widthAnchor.constraint(equalToConstant: 202).isActive = true
+        fileFilterContainer.heightAnchor.constraint(equalToConstant: 24).isActive = true
+        fileFilterContainer.addSubview(fileFilterPopup)
+        NSLayoutConstraint.activate([
+            fileFilterPopup.leadingAnchor.constraint(equalTo: fileFilterContainer.leadingAnchor, constant: -7),
+            fileFilterPopup.centerYAnchor.constraint(equalTo: fileFilterContainer.centerYAnchor),
+            fileFilterPopup.widthAnchor.constraint(equalToConstant: 209)
+        ])
+
+        stack.addArrangedSubview(fileFilterContainer)
+        stack.setCustomSpacing(18, after: fileFilterContainer)
 
         sidebarItemStack = NSStackView()
         sidebarItemStack.orientation = .vertical
@@ -589,6 +675,27 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
         popup.action = #selector(placesPopupChanged(_:))
         popup.toolTip = "Switch report folder"
         rebuildPlacesPopup(popup)
+        return popup
+    }
+
+    private func buildFileFilterPopup() -> NSPopUpButton {
+        let popup = NSPopUpButton(frame: .zero, pullsDown: false)
+        popup.translatesAutoresizingMaskIntoConstraints = false
+        popup.controlSize = .small
+        popup.bezelStyle = .shadowlessSquare
+        popup.isBordered = false
+        popup.font = .systemFont(ofSize: 11, weight: .medium)
+        popup.target = self
+        popup.action = #selector(fileFilterPopupChanged(_:))
+        popup.toolTip = "Choose which file types appear in the sidebar"
+
+        for filter in SidebarFileFilter.allCases {
+            popup.addItem(withTitle: filter.title)
+            popup.lastItem?.representedObject = filter.rawValue
+        }
+        if let item = popup.itemArray.first(where: { ($0.representedObject as? String) == sidebarFileFilter.rawValue }) {
+            popup.select(item)
+        }
         return popup
     }
 
@@ -872,6 +979,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
         if defaults.object(forKey: topBarVisibleDefaultsKey) != nil {
             isTopBarVisible = defaults.bool(forKey: topBarVisibleDefaultsKey)
         }
+        if let rawFilter = defaults.string(forKey: sidebarFileFilterDefaultsKey),
+           let savedFilter = SidebarFileFilter(rawValue: rawFilter) {
+            sidebarFileFilter = savedFilter
+        }
     }
 
     private func restoredSourceMode() -> SourceMode {
@@ -986,7 +1097,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
         case .folder(let id):
             let mode = folderMode(withID: id) ?? folderModes.first
             currentReadRoot = mode?.folderURL ?? defaultBlogsRoot
-            currentItems = folderDocuments(in: currentReadRoot).map { fileURL in
+            currentItems = folderDocuments(in: currentReadRoot, matching: sidebarFileFilter).map { fileURL in
                 Report(
                     id: "folder-\(fileURL.path)",
                     title: documentTitle(for: fileURL),
@@ -1012,7 +1123,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
         ]
     }
 
-    private func folderDocuments(in root: URL) -> [URL] {
+    private func folderDocuments(in root: URL, matching filter: SidebarFileFilter = .all) -> [URL] {
         guard FileManager.default.fileExists(atPath: root.path),
               let enumerator = FileManager.default.enumerator(
                 at: root,
@@ -1025,7 +1136,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
         let files = enumerator.compactMap { item -> URL? in
             guard let fileURL = item as? URL else { return nil }
             let pathExtension = fileURL.pathExtension.lowercased()
-            guard ["html", "htm", "md", "markdown"].contains(pathExtension) else { return nil }
+            guard filter.includes(pathExtension: pathExtension) else { return nil }
             return fileURL
         }
 
@@ -1153,6 +1264,43 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
 
         if let item = placesPopup.itemArray.first(where: { ($0.representedObject as? String) == selectedID }) {
             placesPopup.select(item)
+        }
+
+        updateFileFilterControls()
+    }
+
+    private func updateFileFilterControls() {
+        let isFolderMode: Bool
+        if case .folder = sourceMode {
+            isFolderMode = true
+        } else {
+            isFolderMode = false
+        }
+
+        fileFilterContainer?.isHidden = !isFolderMode
+        fileFilterPopup?.isEnabled = isFolderMode
+        if let item = fileFilterPopup?.itemArray.first(where: { ($0.representedObject as? String) == sidebarFileFilter.rawValue }) {
+            fileFilterPopup?.select(item)
+        }
+
+        for (filter, item) in fileFilterMenuItems {
+            item.isEnabled = isFolderMode
+            item.state = filter == sidebarFileFilter ? .on : .off
+        }
+    }
+
+    private func setSidebarFileFilter(_ filter: SidebarFileFilter) {
+        guard sidebarFileFilter != filter else {
+            updateFileFilterControls()
+            return
+        }
+
+        sidebarFileFilter = filter
+        defaults.set(filter.rawValue, forKey: sidebarFileFilterDefaultsKey)
+        updateFileFilterControls()
+
+        if case .folder = sourceMode {
+            reloadReport()
         }
     }
 
@@ -1332,7 +1480,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
                 isFolderMode = false
             }
             let emptyLabel = label(
-                isFolderMode ? "No HTML or Markdown files found in this folder." : "No pages found.",
+                isFolderMode ? sidebarFileFilter.emptyMessage : "No pages found.",
                 font: .systemFont(ofSize: 12, weight: .regular),
                 color: .secondaryLabelColor
             )
@@ -1397,6 +1545,22 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
         } else {
             switchMode(.folder(id))
         }
+    }
+
+    @objc private func fileFilterPopupChanged(_ sender: NSPopUpButton) {
+        guard let rawValue = sender.selectedItem?.representedObject as? String,
+              let filter = SidebarFileFilter(rawValue: rawValue) else {
+            return
+        }
+        setSidebarFileFilter(filter)
+    }
+
+    @objc private func fileFilterMenuChanged(_ sender: NSMenuItem) {
+        guard let rawValue = sender.representedObject as? String,
+              let filter = SidebarFileFilter(rawValue: rawValue) else {
+            return
+        }
+        setSidebarFileFilter(filter)
     }
 
     @objc private func showPlacesManager() {
@@ -2255,7 +2419,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
             isFolderMode = false
         }
         let summary = isFolderMode
-            ? "This folder has no HTML or Markdown files HTTMELY can show."
+            ? "This folder has no files matching the current sidebar filter: \(sidebarFileFilter.title)."
             : "This built-in place has no pages available."
         let actionHTML = isFolderMode
             ? """
@@ -2477,6 +2641,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
         alert.informativeText = """
         Choose a place from the sidebar popup.
         Select a report in the sidebar.
+        In folder Places, use the sidebar file filter or View > Folder Files to show all pages, HTML only, or Markdown only.
         Use the bottom sidebar icons for previous, next, contents, and reload.
         Right-click a report to open it externally or reveal it in Finder.
         Use Places > Manage Places to rename, remove, or reorder folders.
