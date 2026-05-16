@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Daily Reports with Your Favorite Tools</title>
+  <link rel="stylesheet" href="assets/welcome.css">
+</head>
+<body>
+  <nav class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">HTTMELY</div>
+      <div class="crumb">Daily Reports</div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="meta">
+      <span class="tag">Daily Reports</span>
+      <span class="date">Notes, apps, AI summaries, exports, memory</span>
+    </div>
+    <h1>A beautiful operating report for the day.</h1>
+    <p class="lead">Imagine opening HTTMELY every morning and seeing one clean report: what happened, what changed, what matters, and what to do next. Your favorite tools can create the signal. HTTMELY can make it readable.</p>
+  </header>
+
+  <main class="wrap">
+    <article class="content">
+      <div class="section-marker"><span class="section-label">Report Anatomy</span></div>
+      <h2>What a daily report can contain</h2>
+      <table>
+        <thead><tr><th>Section</th><th>What It Answers</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Morning Brief</strong></td><td>What deserves attention today?</td></tr>
+          <tr><td><strong>Project Pulse</strong></td><td>Which projects moved, stalled, or need a decision?</td></tr>
+          <tr><td><strong>Memory Signals</strong></td><td>What changed across your notes, apps, files, sessions, or exports?</td></tr>
+          <tr><td><strong>Assistant Work</strong></td><td>What did AI helpers, scripts, or automations build, fix, or leave open?</td></tr>
+          <tr><td><strong>Next Actions</strong></td><td>What are the smallest useful moves?</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Suggested folder</h2>
+      <pre><code>Daily Reports/
+  index.html
+  2026-05-16.html
+  2026-05-17.html
+  weekly/
+    2026-week-20.html</code></pre>
+
+      <blockquote><p>The power move is not just generating a report. It is saving reports as a durable local timeline you can browse later.</p></blockquote>
+
+      <h2>Design idea</h2>
+      <p>Give each daily report a hero with the date, a compact signal shelf, a table of project status, and a final "next actions" block. It should feel less like a log and more like mission control.</p>
+
+      <h2>Use with automation</h2>
+      <p>For recurring reports, keep two kinds of files: stable files that HTTMELY always opens, such as <code>today.html</code> and <code>weekly.html</code>, and dated archive copies that preserve history. An AI assistant or local script can refresh the stable pages, then save a dated copy into <code>archive/</code>.</p>
+      <p>The bundled release materials include a report-automation skill for this pattern. It is useful when you want clear rules for what gets overwritten, what gets archived, and how private source paths stay out of the final report pages.</p>
+    </article>
+  </main>
+</body>
+</html>

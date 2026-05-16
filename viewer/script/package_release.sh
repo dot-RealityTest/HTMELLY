@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-APP_NAME="KikaReportsViewer"
+APP_NAME="HTTMELY"
 BUNDLE_NAME="HTTMELY"
-BUNDLE_ID="ai.kika.httmely"
+BUNDLE_ID="dev.realitytest.httmely"
 MIN_SYSTEM_VERSION="14.0"
 VERSION="${VERSION:-1.0.0}"
 BUILD_NUMBER="${BUILD_NUMBER:-$(date +%Y%m%d%H%M)}"
@@ -24,6 +24,7 @@ APP_MACOS="$APP_CONTENTS/MacOS"
 APP_RESOURCES="$APP_CONTENTS/Resources"
 APP_BINARY="$APP_MACOS/$APP_NAME"
 APP_ICON_SOURCE="$ROOT_DIR/Resources/AppIcon.icns"
+WELCOME_SOURCE="$ROOT_DIR/Resources/Welcome"
 INFO_PLIST="$APP_CONTENTS/Info.plist"
 
 echo "Building $BUNDLE_NAME $VERSION ($BUILD_NUMBER)"
@@ -40,6 +41,10 @@ chmod +x "$APP_BINARY"
 
 if [[ -f "$APP_ICON_SOURCE" ]]; then
   cp "$APP_ICON_SOURCE" "$APP_RESOURCES/AppIcon.icns"
+fi
+
+if [[ -d "$WELCOME_SOURCE" ]]; then
+  cp -R "$WELCOME_SOURCE" "$APP_RESOURCES/Welcome"
 fi
 
 cat >"$INFO_PLIST" <<PLIST

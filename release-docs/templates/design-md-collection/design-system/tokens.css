@@ -1,0 +1,15 @@
+:root {
+  --color-bg: #d9d9d9;
+  --color-panel: rgba(255, 255, 255, 0.42);
+  --color-line: rgba(13, 13, 13, 0.06);
+  --color-heading: #0d0d0d;
+  --color-text: #404040;
+  --color-muted: #656b73;
+  --color-accent: #6d80a6;
+  --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+  --font-mono: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+  --radius-sm: 5px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --shadow-soft: 0 2px 12px rgba(13, 13, 13, 0.04);
+}

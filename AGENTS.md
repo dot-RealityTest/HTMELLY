@@ -15,6 +15,7 @@ Maintain a local-first macOS app that:
 ## Layout
 
 - `viewer/` - SwiftPM AppKit/WKWebView macOS app.
+- `viewer/Resources/Welcome/` - bundled release-safe onboarding pages shown on first launch.
 - `viewer/script/build_and_run.sh` - canonical build and launch path.
 - `viewer/script/regenerate_reports.py` - canonical KIKA reports refresh path.
 - `reports/` - generated stable reports.
@@ -63,13 +64,14 @@ The refresh script also writes dated archive copies in `reports/archive/`. Do no
 ## Editing Rules
 
 - Keep the viewer native, quiet, and minimal.
+- Keep bundled welcome/onboarding pages release-safe and generic.
 - Keep HTTMELY local-first; do not add upload, cloud sync, analytics, accounts, or external services.
 - Do not describe the app as only a reports app. It is a general local HTML/Markdown folder reader.
 - Keep user-facing docs in `docs/user/` generic enough for release.
 - Keep `release-docs/` free of private paths, internal automation, generated archives, and local-only context.
 - Keep KIKA-specific workflow, private paths, and maintenance context in `docs/internal/`, `docs/MAINTENANCE.md`, `docs/CREATING_REPORTS.md`, or `chat/`.
 - Prefer changing `viewer/script/regenerate_reports.py` for report content/structure changes.
-- Prefer changing `viewer/Sources/KikaReportsViewer/main.swift` for native viewer behavior.
+- Prefer changing `viewer/Sources/HTTMELY/main.swift` for native viewer behavior.
 - Folder-backed modes should scan local HTML/Markdown files and keep selected folders in local user defaults only.
 - Do not manually edit generated stable reports as the long-term fix; regenerate them from the script.
 - Do not delete or flatten context docs unless the user explicitly asks; they preserve the project history.

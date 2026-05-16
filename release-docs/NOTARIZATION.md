@@ -34,7 +34,7 @@ The release script submits the DMG, waits for Apple, staples the accepted ticket
 
 ## Current Signing Defaults
 
-- Bundle ID: `ai.kika.httmely`
+- Bundle ID: `dev.realitytest.httmely`
 - Minimum macOS: `14.0`
 - Version: `1.0.0`
 - Default notary profile: `HTTMELY`

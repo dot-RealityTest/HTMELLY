@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Design.md Collections</title>
+  <link rel="stylesheet" href="assets/welcome.css">
+</head>
+<body>
+  <nav class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">HTTMELY</div>
+      <div class="crumb">Design.md</div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="meta">
+      <span class="tag">Design Research</span>
+      <span class="date">Tokens, screenshots, notes, references</span>
+    </div>
+    <h1>Turn design-system research into a local collection.</h1>
+    <p class="lead">A Design.md collection is a folder for studying the visual language of a website or product. It can hold extracted colors, typography, spacing, screenshots, token files, and your own design notes.</p>
+  </header>
+
+  <section class="shelf">
+    <div class="shelf-label">Example Collections</div>
+    <div class="shelf-grid">
+      <article class="tile"><div class="tile-symbol">01</div><h2>Brand Study</h2><p>Colors, typography, tone, page rhythm, and visual references.</p></article>
+      <article class="tile"><div class="tile-symbol">02</div><h2>Token Pack</h2><p>Starter color, type, spacing, and radius files.</p></article>
+      <article class="tile"><div class="tile-symbol">03</div><h2>UI Audit</h2><p>Buttons, cards, forms, navigation, spacing, and states.</p></article>
+      <article class="tile"><div class="tile-symbol">04</div><h2>Inspiration Shelf</h2><p>Saved pages and screenshots from sites you want to learn from.</p></article>
+    </div>
+  </section>
+
+  <main class="wrap">
+    <article class="content">
+      <div class="section-marker"><span class="section-label">Collection Shape</span></div>
+      <h2>Suggested folder</h2>
+      <pre><code>Design Research/
+  index.html
+  DESIGN.md
+  screenshots/
+    homepage.png
+    pricing.png
+  design-system/
+    tokens.json
+    tokens.css
+  notes/
+    typography.md
+    color-system.md
+    component-observations.md</code></pre>
+
+      <h2>What to put in DESIGN.md</h2>
+      <table>
+        <thead><tr><th>Section</th><th>Purpose</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Source</strong></td><td>The public URL or product area you studied.</td></tr>
+          <tr><td><strong>Color Notes</strong></td><td>Primary, secondary, accent, background, and neutral colors.</td></tr>
+          <tr><td><strong>Typography</strong></td><td>Detected fonts, heading scale, body size, weight, and rhythm.</td></tr>
+          <tr><td><strong>Layout</strong></td><td>Spacing scale, container width, grids, and page density.</td></tr>
+          <tr><td><strong>Components</strong></td><td>Observed buttons, cards, forms, navigation, badges, and empty states.</td></tr>
+          <tr><td><strong>Use With Care</strong></td><td>What is inspiration, what is extracted fact, and what still needs review.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Extraction workflow</h2>
+      <ol>
+        <li><strong>Pick a public website.</strong> Use a page that represents the visual style you want to study.</li>
+        <li><strong>Extract primitives.</strong> Capture likely colors, fonts, spacing, radius, shadows, and starter token files.</li>
+        <li><strong>Review the output.</strong> Treat extraction as initialization, not a complete design system.</li>
+        <li><strong>Save the artifacts locally.</strong> Keep raw output, normalized output, token files, screenshots, and notes in one folder.</li>
+        <li><strong>Open the folder in HTTMELY.</strong> Browse it like a small design reference library.</li>
+      </ol>
+
+      <blockquote><p>The goal is not pixel-perfect copying. The goal is a portable research packet that helps you understand a visual system before you design your own.</p></blockquote>
+
+      <h2>Use with an AI assistant</h2>
+      <p>A design extraction assistant can create the first draft: <code>DESIGN.md</code>, <code>tokens.css</code>, <code>tokens.json</code>, screenshot notes, and component observations. Then you review it, correct it, and open the folder in HTTMELY as a calm local reference.</p>
+      <p>If your release bundle includes the HTTMELY collection design skill, pair it with a design-system extraction workflow: extraction gathers raw visual facts, and the collection design step turns those facts into a readable local library.</p>
+
+      <h2>Example DESIGN.md starter</h2>
+      <pre><code># Design Study
+
+Source: https://example.com
+Date: 2026-05-16
+
+## First Impression
+- Calm editorial layout
+- Muted neutral background
+- Blue-grey accent
+- Small uppercase labels
+
+## Extracted Primitives
+- Primary color:
+- Accent color:
+- Body font:
+- Heading font:
+- Radius scale:
+- Shadow style:
+
+## Screenshots
+- screenshots/homepage.png
+- screenshots/detail-page.png
+
+## Notes
+- What should inspire this project?
+- What should not be copied?
+- What needs manual review?</code></pre>
+    </article>
+  </main>
+</body>
+</html>

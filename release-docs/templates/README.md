@@ -1,15 +1,20 @@
-# HTTMELY Ready-To-Use Templates
+# HTTMELY Collection Templates
 
-Copy any template into a local folder, rename it, edit the content, then add that folder to HTTMELY with `Places > Add Folder...`.
+Copy a single page template or a complete folder template into your local files, edit the content, then add that folder to HTTMELY with `Places > Add Folder...`.
 
-## Templates
+## Page Templates
 
 - `collection-index.html` - a clean landing page for a folder of pages.
 - `report-template.html` - a classic structured report page with summary, findings, table, and actions.
 - `brief-template.html` - a calmer brief/notes page for writing, planning, reviews, or research.
 - `markdown-template.md` - a simple Markdown starter for fast local notes.
 
-## Recommended Folder Shape
+## Folder Templates
+
+- `design-md-collection/` - a starter Design.md research packet with notes, screenshots folder, and token files.
+- `daily-report-collection/` - a stable current-report folder with daily, weekly, assets, and archive structure.
+
+## Good Folder Shapes
 
 ```text
 My HTTMELY Collection/
@@ -20,11 +25,32 @@ My HTTMELY Collection/
     2026-05-16.html
 ```
 
+```text
+Design Study/
+  index.html
+  DESIGN.md
+  screenshots/
+  design-system/
+    tokens.css
+    tokens.json
+  notes/
+```
+
+```text
+Daily Reports/
+  index.html
+  today.html
+  weekly.html
+  assets/
+  archive/
+    2026-05-16.html
+```
+
 ## How To Use
 
-1. Copy `collection-index.html` into your folder as `index.html`.
-2. Copy one or more content templates into the same folder.
-3. Rename them with clear filenames.
+1. For a simple collection, copy `collection-index.html` into your folder as `index.html`.
+2. For a fuller starter, copy a folder template such as `design-md-collection/` or `daily-report-collection/`.
+3. Rename files with clear, stable filenames.
 4. Replace the placeholder text.
 5. Add the folder in HTTMELY.
 
@@ -36,4 +62,5 @@ My HTTMELY Collection/
 - Use stable `id` values on `h2` and important `h3` headings.
 - Keep everything local: inline CSS, local images only, no external scripts or CDNs.
 - Use the report template only when the content is actually a report.
-
+- For recurring reports, keep stable files like `today.html` and archive dated copies separately.
+- For Design.md collections, keep extracted facts, screenshots, and personal interpretation clearly separated.

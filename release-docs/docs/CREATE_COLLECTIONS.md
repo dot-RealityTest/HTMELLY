@@ -90,5 +90,5 @@ Output:
 - Keep filenames clear and stable.
 - Tell me the folder path to add in HTTMELY with Places > Add Folder...
 
-Use the HTTMELY page design skill if it is available in your agent environment.
+Use the HTTMELY collection design skill if it is available in your agent environment. For recurring generated reports, stable filenames, archive copies, and automation rules, use the HTTMELY report automation skill.
 ```

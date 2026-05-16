@@ -21,6 +21,7 @@ make verify
 ## Features
 
 - Opens folders containing `.html`, `.htm`, `.md`, and `.markdown` files.
+- Opens a bundled Welcome guide on first launch so new users have a starting point.
 - Saves multiple local folder shortcuts as Places.
 - Shows a native sidebar with place switching and page selection.
 - Adds optional in-page contents navigation from headings.

@@ -3,17 +3,17 @@
 import PackageDescription
 
 let package = Package(
-    name: "KikaReportsViewer",
+    name: "HTTMELY",
     platforms: [
         .macOS(.v14)
     ],
     products: [
-        .executable(name: "KikaReportsViewer", targets: ["KikaReportsViewer"])
+        .executable(name: "HTTMELY", targets: ["HTTMELY"])
     ],
     targets: [
         .executableTarget(
-            name: "KikaReportsViewer",
-            path: "Sources/KikaReportsViewer"
+            name: "HTTMELY",
+            path: "Sources/HTTMELY"
         )
     ]
 )

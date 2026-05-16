@@ -4,11 +4,16 @@ Put final screenshots in `release-docs/screenshots/`.
 
 ## Suggested Screenshots
 
-- `01-main-reader.png` - main HTTMELY window with a clean local page open.
-- `02-folder-switching.png` - sidebar place picker or multiple saved folders.
-- `03-contents-panel.png` - page contents navigation open.
-- `04-manage-places.png` - manage places sheet for add, rename, reorder, remove.
-- `05-page-collection.png` - example generated page collection from another workflow.
+- `01-welcome.png` - first-launch Welcome page with the bundled collection open.
+- `02-use-cases.png` - Use Cases page showing the app as a general local folder reader.
+- `03-design-md.png` - Design.md collection page with example folder structure and token workflow.
+- `04-daily-reports.png` - Daily Reports page showing stable report and archive concepts.
+- `05-saved-sites.png` - Saved Sites page showing SingleFile-style local web archives.
+- `06-main-reader.png` - main HTTMELY window with a clean local page open.
+- `07-folder-switching.png` - sidebar place picker or multiple saved folders.
+- `08-contents-panel.png` - page contents navigation open.
+- `09-manage-places.png` - manage places sheet for add, rename, reorder, remove.
+- `10-page-collection.png` - example generated page collection from another workflow.
 
 ## Screenshot Rules
 
@@ -23,5 +28,7 @@ Put final screenshots in `release-docs/screenshots/`.
 - Main reader: "Browse local HTML and Markdown folders in a calm native macOS reader."
 - Folder switching: "Save multiple places and move between them without moving files."
 - Contents panel: "Use page headings as in-page navigation."
+- Design.md: "Turn design research, screenshots, notes, and tokens into a local reference library."
+- Daily reports: "Keep stable current pages and dated archives in one browsable timeline."
+- Saved sites: "Open local web archives from the same calm reader."
 - Page collection: "Turn scripts, exports, notes, and AI outputs into local browsable collections."
-

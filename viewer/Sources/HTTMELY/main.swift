@@ -24,6 +24,7 @@ struct FolderMode: Identifiable, Equatable {
 }
 
 enum SourceMode: Equatable {
+    case welcome
     case reports
     case folder(String)
 }
@@ -48,6 +49,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
     private var subtitleLabel: NSTextField!
     private var sidebarButtons: [String: NSButton] = [:]
     private var modeMenu: NSMenu?
+    private var welcomeModeMenuItem: NSMenuItem?
     private var reportsModeMenuItem: NSMenuItem?
     private var folderModeMenuItems: [String: NSMenuItem] = [:]
     private var topBarMenuItem: NSMenuItem?
@@ -56,7 +58,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
     private var placesManagerActionButtons: [NSButton] = []
     private var keyMonitor: Any?
     private var selectedReport: Report?
-    private var sourceMode: SourceMode = .reports
+    private var sourceMode: SourceMode = .welcome
     private var folderModes: [FolderMode] = []
     private var currentItems: [Report] = []
     private var currentReadRoot: URL!
@@ -64,15 +66,16 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
     private var isReportContentsVisible = false
     private var isTopBarVisible = false
     private let defaults = UserDefaults.standard
+    private lazy var welcomeRoot = resolveWelcomeRoot()
     private lazy var reportRoot = resolveReportRoot()
     private lazy var defaultBlogsRoot = resolveDefaultFolderRoot()
-    private let folderModesDefaultsKey = "KikaReportsViewer.folderModePaths"
-    private let folderDefaultsKey = "KikaReportsViewer.folderModePath"
-    private let legacyBlogsFolderDefaultsKey = "KikaReportsViewer.blogsFolderPath"
-    private let sidebarVisibleDefaultsKey = "KikaReportsViewer.sidebarVisible"
-    private let contentsVisibleDefaultsKey = "KikaReportsViewer.contentsVisible"
-    private let topBarVisibleDefaultsKey = "KikaReportsViewer.topBarVisible"
-    private let lastSourceModeDefaultsKey = "KikaReportsViewer.lastSourceMode"
+    private let folderModesDefaultsKey = "HTTMELY.folderModePaths"
+    private let folderDefaultsKey = "HTTMELY.folderModePath"
+    private let legacyBlogsFolderDefaultsKey = "HTTMELY.blogsFolderPath"
+    private let sidebarVisibleDefaultsKey = "HTTMELY.sidebarVisible"
+    private let contentsVisibleDefaultsKey = "HTTMELY.contentsVisible"
+    private let topBarVisibleDefaultsKey = "HTTMELY.topBarVisible"
+    private let lastSourceModeDefaultsKey = "HTTMELY.lastSourceMode"
     private let windowFrameAutosaveName = NSWindow.FrameAutosaveName("HTTMELY.mainWindow")
 
     func applicationDidFinishLaunching(_ notification: Notification) {
@@ -110,8 +113,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
         case #selector(openReportFromMenu(_:)), #selector(revealReportFromMenu(_:)):
             guard let id = menuItem.representedObject as? String else { return false }
             return currentItems.contains { $0.id == id }
-        case #selector(revealCurrentFolder), #selector(exportCurrentFolder), #selector(writeDatedArchiveCopy):
+        case #selector(revealCurrentFolder), #selector(exportCurrentFolder):
             return hasCurrentFolder
+        case #selector(writeDatedArchiveCopy):
+            return hasCurrentFolder && sourceMode != .welcome
         case #selector(selectPreviousReport), #selector(selectNextReport):
             return hasMultipleReports
         case #selector(reloadReport):
@@ -361,7 +366,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
         modeMenu.removeAllItems()
         folderModeMenuItems.removeAll()
 
-        let reportsItem = NSMenuItem(title: "Reports", action: #selector(showReportsMode), keyEquivalent: "1")
+        let welcomeItem = NSMenuItem(title: "Welcome", action: #selector(showWelcomeMode), keyEquivalent: "1")
+        welcomeItem.keyEquivalentModifierMask = [.command, .option]
+        welcomeItem.target = self
+        welcomeModeMenuItem = welcomeItem
+        modeMenu.addItem(welcomeItem)
+
+        let reportsItem = NSMenuItem(title: "Reports", action: #selector(showReportsMode), keyEquivalent: "2")
         reportsItem.keyEquivalentModifierMask = [.command, .option]
         reportsItem.target = self
         reportsModeMenuItem = reportsItem
@@ -372,7 +383,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
         }
 
         for (index, folderMode) in folderModes.enumerated() {
-            let keyEquivalent = index < 8 ? "\(index + 2)" : ""
+            let keyEquivalent = index < 7 ? "\(index + 3)" : ""
             let item = NSMenuItem(title: folderMode.title, action: #selector(showFolderMode(_:)), keyEquivalent: keyEquivalent)
             item.keyEquivalentModifierMask = keyEquivalent.isEmpty ? [] : [.command, .option]
             item.target = self
@@ -581,18 +592,32 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
         return popup
     }
 
+    private func resolveWelcomeRoot() -> URL {
+        let fileManager = FileManager.default
+        let environmentOverride = ProcessInfo.processInfo.environment["HTTMELY_WELCOME_DIR"].map {
+            URL(fileURLWithPath: $0, isDirectory: true).standardizedFileURL
+        }
+        let bundleWelcome = Bundle.main.resourceURL?
+            .appendingPathComponent("Welcome", isDirectory: true)
+            .standardizedFileURL
+        let launchWelcome = URL(fileURLWithPath: fileManager.currentDirectoryPath, isDirectory: true)
+            .standardizedFileURL
+            .appendingPathComponent("Resources/Welcome", isDirectory: true)
+
+        for candidate in [environmentOverride, bundleWelcome, launchWelcome].compactMap({ $0 }) {
+            if fileManager.fileExists(atPath: candidate.path) {
+                return candidate
+            }
+        }
+
+        return bundleWelcome ?? launchWelcome
+    }
+
     private func resolveReportRoot() -> URL {
         let fileManager = FileManager.default
         let environment = ProcessInfo.processInfo.environment
         let environmentOverride = environment["HTTMELY_REPORTS_DIR"].map { URL(fileURLWithPath: $0, isDirectory: true).standardizedFileURL }
         let legacyOverride = environment["HTTMELY_LEGACY_REPORTS_DIR"].map { URL(fileURLWithPath: $0, isDirectory: true).standardizedFileURL }
-
-        let sourceRoot = URL(fileURLWithPath: #filePath)
-            .deletingLastPathComponent()
-            .deletingLastPathComponent()
-            .deletingLastPathComponent()
-            .deletingLastPathComponent()
-        let sourceRelativeReports = sourceRoot.appendingPathComponent("reports", isDirectory: true)
 
         let bundleRelativeReports = Bundle.main.bundleURL
             .deletingLastPathComponent()
@@ -600,13 +625,25 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
             .deletingLastPathComponent()
             .appendingPathComponent("reports", isDirectory: true)
 
-        for candidate in [environmentOverride, sourceRelativeReports, bundleRelativeReports, legacyOverride].compactMap({ $0 }) {
+        let launchDirectory = URL(fileURLWithPath: fileManager.currentDirectoryPath, isDirectory: true).standardizedFileURL
+        let launchRelativeReports = launchDirectory.appendingPathComponent("reports", isDirectory: true)
+        let parentRelativeReports = launchDirectory
+            .deletingLastPathComponent()
+            .appendingPathComponent("reports", isDirectory: true)
+
+        for candidate in [
+            environmentOverride,
+            bundleRelativeReports,
+            launchRelativeReports,
+            parentRelativeReports,
+            legacyOverride
+        ].compactMap({ $0 }) {
             if fileManager.fileExists(atPath: candidate.path) {
                 return candidate
             }
         }
 
-        return sourceRelativeReports
+        return bundleRelativeReports
     }
 
     private func resolveDefaultFolderRoot() -> URL {
@@ -839,7 +876,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
 
     private func restoredSourceMode() -> SourceMode {
         guard let storedMode = defaults.string(forKey: lastSourceModeDefaultsKey) else {
-            return .reports
+            return .welcome
+        }
+        if storedMode == "welcome" {
+            return .welcome
         }
         if storedMode == "reports" {
             return .reports
@@ -847,11 +887,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
         if folderMode(withID: storedMode) != nil {
             return .folder(storedMode)
         }
-        return .reports
+        return .welcome
     }
 
     private func persistSourceMode() {
         switch sourceMode {
+        case .welcome:
+            defaults.set("welcome", forKey: lastSourceModeDefaultsKey)
         case .reports:
             defaults.set("reports", forKey: lastSourceModeDefaultsKey)
         case .folder(let id):
@@ -899,6 +941,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
 
     private func currentModeTitle() -> String {
         switch sourceMode {
+        case .welcome:
+            return "Welcome"
         case .reports:
             return "Reports"
         case .folder(let id):
@@ -908,6 +952,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
 
     private func currentModeSubtitle() -> String {
         switch sourceMode {
+        case .welcome:
+            return "Start here"
         case .reports:
             return "Generated local reports"
         case .folder(let id):
@@ -931,6 +977,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
 
     private func loadCurrentModeItems() {
         switch sourceMode {
+        case .welcome:
+            currentReadRoot = welcomeRoot
+            currentItems = welcomeDocuments()
         case .reports:
             currentReadRoot = reportRoot
             currentItems = builtInReports()
@@ -946,6 +995,21 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
                 )
             }
         }
+    }
+
+    private func welcomeDocuments() -> [Report] {
+        [
+            Report(id: "welcome", title: "Welcome", subtitle: "Start here", fileURL: welcomeRoot.appendingPathComponent("00-welcome.html")),
+            Report(id: "how-to", title: "How To", subtitle: "Basic workflow", fileURL: welcomeRoot.appendingPathComponent("01-how-to.html")),
+            Report(id: "create-pages", title: "Create Pages", subtitle: "Make folders HTTMELY can read", fileURL: welcomeRoot.appendingPathComponent("02-create-pages.html")),
+            Report(id: "use-cases", title: "Use Cases", subtitle: "Blogs, reports, archives, and project packets", fileURL: welcomeRoot.appendingPathComponent("03-use-cases.html")),
+            Report(id: "daily-reports", title: "Daily Reports", subtitle: "Notes, apps, agents, and exports", fileURL: welcomeRoot.appendingPathComponent("04-daily-reports.html")),
+            Report(id: "saved-sites", title: "Saved Sites", subtitle: "SingleFile and offline web archives", fileURL: welcomeRoot.appendingPathComponent("05-saved-sites.html")),
+            Report(id: "design-md", title: "Design.md", subtitle: "Design-system research collections", fileURL: welcomeRoot.appendingPathComponent("06-design-md.html")),
+            Report(id: "about", title: "About", subtitle: "What HTTMELY is for", fileURL: welcomeRoot.appendingPathComponent("07-about.html")),
+            Report(id: "contact", title: "Contact", subtitle: "Support notes", fileURL: welcomeRoot.appendingPathComponent("08-contact.html")),
+            Report(id: "privacy", title: "Privacy", subtitle: "Local-first behavior", fileURL: welcomeRoot.appendingPathComponent("09-privacy.html"))
+        ]
     }
 
     private func folderDocuments(in root: URL) -> [URL] {
@@ -1069,6 +1133,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
     }
 
     private func updateModeMenuState() {
+        welcomeModeMenuItem?.state = sourceMode == .welcome ? .on : .off
         reportsModeMenuItem?.state = sourceMode == .reports ? .on : .off
 
         for (id, item) in folderModeMenuItems {
@@ -1078,6 +1143,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
         guard placesPopup != nil else { return }
         let selectedID: String
         switch sourceMode {
+        case .welcome:
+            selectedID = "welcome"
         case .reports:
             selectedID = "reports"
         case .folder(let id):
@@ -1187,6 +1254,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
         let menu = NSMenu()
         menu.autoenablesItems = false
 
+        let welcomeItem = NSMenuItem(title: "Welcome", action: #selector(showWelcomeMode), keyEquivalent: "")
+        welcomeItem.target = self
+        welcomeItem.representedObject = "welcome"
+        welcomeItem.toolTip = "Start here"
+        menu.addItem(welcomeItem)
+
         let reportsItem = NSMenuItem(title: "Reports", action: #selector(showReportsMode), keyEquivalent: "")
         reportsItem.target = self
         reportsItem.representedObject = "reports"
@@ -1201,8 +1274,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
             let item = NSMenuItem(title: mode.title, action: #selector(showFolderMode(_:)), keyEquivalent: "")
             item.target = self
             item.representedObject = mode.id
-            if index < 8 {
-                item.toolTip = "\(mode.folderURL.path)\nCommand-Option-\(index + 2)"
+            if index < 7 {
+                item.toolTip = "\(mode.folderURL.path)\nCommand-Option-\(index + 3)"
             } else {
                 item.toolTip = mode.folderURL.path
             }
@@ -1218,6 +1291,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
 
         targetPopup.removeAllItems()
 
+        targetPopup.addItem(withTitle: "Welcome")
+        targetPopup.lastItem?.representedObject = "welcome"
+        targetPopup.lastItem?.toolTip = "Start here"
+
         targetPopup.addItem(withTitle: "Reports")
         targetPopup.lastItem?.representedObject = "reports"
         targetPopup.lastItem?.toolTip = "Generated reports"
@@ -1229,8 +1306,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
         for (index, mode) in folderModes.enumerated() {
             targetPopup.addItem(withTitle: mode.title)
             targetPopup.lastItem?.representedObject = mode.id
-            if index < 8 {
-                targetPopup.lastItem?.toolTip = "\(mode.folderURL.path)\nCommand-Option-\(index + 2)"
+            if index < 7 {
+                targetPopup.lastItem?.toolTip = "\(mode.folderURL.path)\nCommand-Option-\(index + 3)"
             } else {
                 targetPopup.lastItem?.toolTip = mode.folderURL.path
             }
@@ -1255,7 +1332,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
                 isFolderMode = false
             }
             let emptyLabel = label(
-                isFolderMode ? "No HTML or Markdown files found in this folder." : "No reports found.",
+                isFolderMode ? "No HTML or Markdown files found in this folder." : "No pages found.",
                 font: .systemFont(ofSize: 12, weight: .regular),
                 color: .secondaryLabelColor
             )
@@ -1298,6 +1375,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
         }
     }
 
+    @objc private func showWelcomeMode() {
+        switchMode(.welcome)
+    }
+
     @objc private func showReportsMode() {
         switchMode(.reports)
     }
@@ -1309,7 +1390,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
 
     @objc private func placesPopupChanged(_ sender: NSPopUpButton) {
         guard let id = sender.selectedItem?.representedObject as? String else { return }
-        if id == "reports" {
+        if id == "welcome" {
+            switchMode(.welcome)
+        } else if id == "reports" {
             switchMode(.reports)
         } else {
             switchMode(.folder(id))
@@ -1670,7 +1753,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
             let nextIndex = min(index, folderModes.count - 1)
             switchMode(.folder(folderModes[nextIndex].id))
         } else if sourceMode == .folder(removedMode.id) {
-            switchMode(.reports)
+            switchMode(.welcome)
         }
     }
 
@@ -2173,7 +2256,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
         }
         let summary = isFolderMode
             ? "This folder has no HTML or Markdown files HTTMELY can show."
-            : "The reports folder exists, but no stable report files were loaded."
+            : "This built-in place has no pages available."
         let actionHTML = isFolderMode
             ? """
               <p class="actions">
@@ -2181,7 +2264,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
                 <a href="htmelly://manage-places">Manage Places...</a>
               </p>
               """
-            : "<p>Run <code>make refresh</code> from the HTMELLY project, then reload the viewer.</p>"
+            : "<p>Try switching places or adding a local folder.</p>"
         let html = """
         <!doctype html>
         <html>

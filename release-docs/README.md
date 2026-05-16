@@ -2,7 +2,7 @@
 
 This folder is the clean release packet for HTTMELY.
 
-It contains user-facing docs, app positioning, screenshot planning, and the HTTMELY page-design skill. It does not include private maintenance notes, internal workflow context, generated archives, or local automation details.
+It contains user-facing docs, app positioning, screenshot planning, and the HTTMELY collection-design skill. It does not include private maintenance notes, internal workflow context, generated archives, or local automation details.
 
 ## Contents
 
@@ -10,7 +10,8 @@ It contains user-facing docs, app positioning, screenshot planning, and the HTTM
 - `docs/CREATE_COLLECTIONS.md` - how users can create local HTML/Markdown page collections.
 - `docs/LOCAL_FIRST_PRIVACY.md` - local-first privacy notes.
 - `docs/APP_DESCRIPTION.md` - short/medium app copy and feature bullets.
-- `skills/htmelly-page-design/SKILL.md` - reusable agent skill for creating pages that fit HTTMELY.
+- `skills/htmelly-page-design/SKILL.md` - reusable agent skill for creating local page collections that fit HTTMELY.
+- `skills/htmelly-report-automation/SKILL.md` - reusable agent skill for generated report collections, archive rules, and recurring automation prompts.
 - `templates/` - ready-to-use HTML and Markdown starter pages.
 - `screenshots/` - place final release screenshots here.
 - `SCREENSHOTS.md` - screenshot checklist and naming guide.
