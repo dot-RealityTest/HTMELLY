@@ -4,6 +4,8 @@ HTTMELY is a local-first macOS reader for folders of HTML and Markdown pages.
 
 It is built for people who already have local files, generated reports, exported notes, project briefs, research packets, or AI-created page collections and want a quiet native place to read them without uploading anything.
 
+The first launch includes a bundled Welcome collection with examples for blog queues, daily reports, saved websites, Design.md collections, project packets, and local documentation shelves.
+
 ## Positioning
 
 HTTMELY is not a hosted documentation service, notes cloud, website builder, or analytics dashboard. It is a native AppKit/WKWebView shell for browsing local page folders.
@@ -15,6 +17,7 @@ HTTMELY is not a hosted documentation service, notes cloud, website builder, or 
 - Use a native sidebar, page list, and optional contents panel.
 - Keep folder shortcuts and UI state in local user defaults.
 - Export or archive source folders without changing the originals.
+- Start from release-safe collection examples and templates.
 
 ## Privacy
 
@@ -30,4 +33,6 @@ Generated report outputs are excluded from the public repository because local i
 - Minimum macOS: 14.0
 - License: MIT
 - Repository: https://github.com/dot-RealityTest/HTMELLY
-- Download: https://github.com/dot-RealityTest/HTMELLY/releases
+- Download: https://github.com/dot-RealityTest/HTMELLY/releases/download/v1.0.0/HTTMELY-1.0.0.dmg
+- Release: 1.0.0, signed with Developer ID, notarized by Apple, stapled for Gatekeeper
+- SHA-256: `7af405aab916603d1d765349b8a112abb986017325b97fb26d4519a4a45e356e`

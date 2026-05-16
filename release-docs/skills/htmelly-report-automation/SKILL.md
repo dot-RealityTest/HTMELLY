@@ -140,7 +140,7 @@ Keep out of shared/release docs:
 
 For release-safe examples, use placeholders:
 
-- `/Users/you/Reports`
+- `~/Reports`
 - `Example Project`
 - `Your favorite notes app`
 - `Your task manager export`

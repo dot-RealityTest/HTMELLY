@@ -10,7 +10,12 @@ HTTMELY lets you choose folders from anywhere on your Mac and browse local pages
 
 ## Download
 
-The macOS DMG is published on the [GitHub Releases page](https://github.com/dot-RealityTest/HTMELLY/releases).
+Download the notarized macOS build:
+
+- [HTTMELY-1.0.0.dmg](https://github.com/dot-RealityTest/HTMELLY/releases/download/v1.0.0/HTTMELY-1.0.0.dmg)
+- SHA-256: `7af405aab916603d1d765349b8a112abb986017325b97fb26d4519a4a45e356e`
+
+The DMG is signed with Developer ID, notarized by Apple, and stapled for Gatekeeper.
 
 For a local build:
 
@@ -18,10 +23,13 @@ For a local build:
 make verify
 ```
 
+![HTTMELY Welcome screen](docs/assets/htmelly-welcome.png)
+
 ## Features
 
 - Opens folders containing `.html`, `.htm`, `.md`, and `.markdown` files.
 - Opens a bundled Welcome guide on first launch so new users have a starting point.
+- Includes ready-to-use starter ideas for blog queues, daily reports, saved websites, Design.md collections, and project packets.
 - Saves multiple local folder shortcuts as Places.
 - Shows a native sidebar with place switching and page selection.
 - Adds optional in-page contents navigation from headings.
@@ -67,6 +75,7 @@ For Developer ID signing, pass `SIGN_IDENTITY` in the environment. For notarizat
 - [Release Docs](release-docs/README.md)
 - [Answer-engine summary](llms.txt)
 - [Public overview](docs/overview.md)
+- [Release notes](docs/release-notes.md)
 - [Landing page](https://dot-realitytest.github.io/HTMELLY/)
 
 ## HTTMELY-Ready Pages

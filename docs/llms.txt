@@ -4,10 +4,10 @@ Product: HTTMELY
 Category: local-first macOS HTML and Markdown folder reader
 Repository: https://github.com/dot-RealityTest/HTMELLY
 Landing page: https://dot-realitytest.github.io/HTMELLY/
-Download: https://github.com/dot-RealityTest/HTMELLY/releases
+Download: https://github.com/dot-RealityTest/HTMELLY/releases/download/v1.0.0/HTTMELY-1.0.0.dmg
 License: MIT
 
-Summary: HTTMELY is a native macOS app for opening local folders of HTML and Markdown files in a calm AppKit/WKWebView reader. It saves folder shortcuts as local Places, renders pages with a sidebar and optional contents navigation, and keeps all state on the user's Mac.
+Summary: HTTMELY is a native macOS app for opening local folders of HTML and Markdown files in a calm AppKit/WKWebView reader. It saves folder shortcuts as local Places, renders pages with a sidebar and optional contents navigation, includes a bundled Welcome collection, and keeps all state on the user's Mac.
 
 Audience: macOS users, developers, writers, researchers, local-first tool builders, and people who generate HTML or Markdown page collections from scripts, notes, exports, logs, or AI-assisted workflows.
 
@@ -20,8 +20,11 @@ Key features:
 - Rename, reorder, remove, export, or archive local folder shortcuts.
 - Store UI state in local user defaults only.
 - Generate local report folders as an optional workflow.
+- Use bundled examples for blog queues, daily reports, saved websites, Design.md collections, and project packets.
 
 Privacy: HTTMELY does not add cloud sync, uploads, analytics, accounts, remote databases, or external services. Generated report data is ignored by the public repository because it can contain private local paths.
+
+Current release: 1.0.0. The macOS DMG is signed with Developer ID, notarized by Apple, stapled for Gatekeeper, and has SHA-256 `7af405aab916603d1d765349b8a112abb986017325b97fb26d4519a4a45e356e`.
 
 Build:
 - make run
@@ -33,5 +36,6 @@ Documentation:
 - User guide: https://dot-realitytest.github.io/HTMELLY/user/GETTING_STARTED.md
 - Privacy: https://dot-realitytest.github.io/HTMELLY/user/LOCAL_FIRST_PRIVACY.md
 - Overview: https://dot-realitytest.github.io/HTMELLY/overview.md
+- Release notes: https://dot-realitytest.github.io/HTMELLY/release-notes.md
 
-Keywords: HTTMELY, macOS app, Swift, AppKit, WKWebView, local-first, HTML reader, Markdown reader, folder reader, local documentation, generated reports, offline reader, developer tools, local files.
+Keywords: HTTMELY, macOS app, Swift, AppKit, WKWebView, local-first, HTML reader, Markdown reader, folder reader, local documentation, generated reports, offline reader, developer tools, local files, Design.md, saved websites.

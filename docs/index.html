@@ -10,11 +10,11 @@
   <meta property="og:description" content="Open local HTML and Markdown folders as calm native macOS page collections. No cloud, no accounts, no uploads.">
   <meta property="og:url" content="https://dot-realitytest.github.io/HTMELLY/">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="https://dot-realitytest.github.io/HTMELLY/assets/htmelly-icon.png">
+  <meta property="og:image" content="https://dot-realitytest.github.io/HTMELLY/assets/htmelly-welcome.png">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="HTTMELY">
   <meta name="twitter:description" content="A local-first macOS reader for HTML and Markdown folders.">
-  <meta name="twitter:image" content="https://dot-realitytest.github.io/HTMELLY/assets/htmelly-icon.png">
+  <meta name="twitter:image" content="https://dot-realitytest.github.io/HTMELLY/assets/htmelly-welcome.png">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -25,7 +25,7 @@
     "description": "A local-first macOS app for reading folders of HTML and Markdown pages in a native AppKit/WKWebView reader.",
     "softwareVersion": "1.0.0",
     "license": "https://github.com/dot-RealityTest/HTMELLY/blob/main/LICENSE",
-    "downloadUrl": "https://github.com/dot-RealityTest/HTMELLY/releases",
+    "downloadUrl": "https://github.com/dot-RealityTest/HTMELLY/releases/download/v1.0.0/HTTMELY-1.0.0.dmg",
     "codeRepository": "https://github.com/dot-RealityTest/HTMELLY"
   }
   </script>
@@ -143,9 +143,9 @@
       box-shadow: 0 18px 50px rgba(21, 24, 32, 0.08);
     }
     .preview img {
-      width: 88px;
-      height: 88px;
-      border-radius: 20px;
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
       display: block;
       margin-bottom: 20px;
     }
@@ -224,6 +224,7 @@
       <div class="links">
         <a href="overview.md">Overview</a>
         <a href="user/GETTING_STARTED.md">Guide</a>
+        <a href="release-notes.md">Release</a>
         <a href="llms.txt">llms.txt</a>
         <a href="https://github.com/dot-RealityTest/HTMELLY">GitHub</a>
       </div>
@@ -237,18 +238,18 @@
           <h1>HTTMELY</h1>
           <p class="lede">A local-first macOS reader for folders of HTML and Markdown pages. Add a folder, switch Places, read quietly, and keep everything on your Mac.</p>
           <div class="actions">
-            <a class="button primary" href="https://github.com/dot-RealityTest/HTMELLY/releases">Download for macOS</a>
+            <a class="button primary" href="https://github.com/dot-RealityTest/HTMELLY/releases/download/v1.0.0/HTTMELY-1.0.0.dmg">Download for macOS</a>
             <a class="button" href="https://github.com/dot-RealityTest/HTMELLY">View on GitHub</a>
           </div>
         </div>
-        <div class="preview" aria-label="HTTMELY local folder preview">
-          <img src="assets/htmelly-icon.png" alt="HTTMELY app icon">
-          <strong>Local page collection</strong>
+        <div class="preview" aria-label="HTTMELY app preview">
+          <img src="assets/htmelly-welcome.png" alt="HTTMELY showing a local Welcome page collection">
+          <strong>Local page collections</strong>
           <div class="file-list">
-            index.html<br>
-            overview.md<br>
-            reports/startup.html<br>
-            notes/research.md
+            Welcome guide<br>
+            Daily reports<br>
+            Saved sites<br>
+            Design.md collections
           </div>
         </div>
       </div>
@@ -258,7 +259,7 @@
       <div class="wrap features">
         <div class="feature">
           <h3>Open Local Folders</h3>
-          <p>Browse `.html`, `.htm`, `.md`, and `.markdown` files without moving them or uploading them.</p>
+          <p>Browse .html, .htm, .md, and .markdown files without moving them or uploading them.</p>
         </div>
         <div class="feature">
           <h3>Save Places</h3>
@@ -268,6 +269,19 @@
           <h3>Read Quietly</h3>
           <p>Use a native sidebar, page list, and optional contents panel built around local files.</p>
         </div>
+        <div class="feature">
+          <h3>Start With Examples</h3>
+          <p>Use the bundled Welcome collection for blog queues, daily reports, saved websites, Design.md studies, and project packets.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2>Notarized macOS Release</h2>
+        <p>HTTMELY 1.0.0 is signed with Developer ID, notarized by Apple, and stapled for Gatekeeper.</p>
+        <p><strong>SHA-256:</strong> <code>7af405aab916603d1d765349b8a112abb986017325b97fb26d4519a4a45e356e</code></p>
+        <p><a class="button primary" href="https://github.com/dot-RealityTest/HTMELLY/releases/download/v1.0.0/HTTMELY-1.0.0.dmg">Download HTTMELY-1.0.0.dmg</a></p>
       </div>
     </section>
 
@@ -289,6 +303,7 @@
   <footer>
     <div class="wrap">
       <a href="overview.md">Overview</a> ·
+      <a href="release-notes.md">Release Notes</a> ·
       <a href="user/LOCAL_FIRST_PRIVACY.md">Privacy</a> ·
       <a href="sitemap.xml">Sitemap</a> ·
       <a href="https://github.com/dot-RealityTest/HTMELLY">GitHub</a>
