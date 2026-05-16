@@ -702,6 +702,39 @@
       }
 
       .hero-sidebar {
+        display: block;
+        padding: 14px 16px;
+      }
+
+      .hero-sidebar-title {
+        font-size: 0.82rem;
+        margin-bottom: 10px;
+      }
+
+      .hero-nav-list {
+        display: flex;
+        gap: 8px;
+        grid-template-columns: none;
+        overflow-x: auto;
+        padding-bottom: 2px;
+        scrollbar-width: none;
+      }
+
+      .hero-nav-list::-webkit-scrollbar {
+        display: none;
+      }
+
+      .hero-nav-list li {
+        background: rgba(248, 248, 246, 0.64);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        flex: 0 0 auto;
+        font-size: 0.76rem;
+        margin: 0;
+        padding: 5px 9px;
+      }
+
+      .hero-sidebar-foot {
         display: none;
       }
 
@@ -715,11 +748,12 @@
       }
 
       .hero-reader {
-        padding: 38px 18px 22px;
+        gap: 22px;
+        padding: 32px 18px 22px;
       }
 
       .hero-reader-preview {
-        display: none;
+        display: block;
       }
 
       .release-box {
