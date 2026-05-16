@@ -215,22 +215,12 @@
     }
 
     .hero-sidebar-title {
-      appearance: none;
-      -webkit-appearance: none;
-      background: transparent;
-      border: 0;
       color: var(--ink);
       display: flex;
       font-size: 0.94rem;
       font-weight: 820;
       justify-content: space-between;
       margin-bottom: 28px;
-      padding: 0;
-      width: 100%;
-    }
-
-    .hero-sidebar-kicker {
-      display: none;
     }
 
     .hero-nav-list {
@@ -643,88 +633,7 @@
       }
 
       .hero-sidebar {
-        border-bottom: 1px solid var(--line);
-        border-right: 0;
-        display: block;
-        justify-content: initial;
-        padding: 14px 18px;
-      }
-
-      .hero-sidebar > div:first-child {
-        display: block;
-      }
-
-      .hero-sidebar-title {
-        background: rgba(248, 248, 246, 0.68);
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        cursor: pointer;
-        align-items: center;
-        gap: 12px;
-        margin-bottom: 0;
-        min-height: 48px;
-        padding: 0 14px;
-      }
-
-      .hero-sidebar-title > span:first-child {
-        display: grid;
-        gap: 2px;
-      }
-
-      .hero-sidebar-kicker {
-        color: var(--blue-dark);
-        display: block;
-        font-size: 9px;
-        font-weight: 850;
-        letter-spacing: 0.2em;
-        line-height: 1;
-        text-transform: uppercase;
-      }
-
-      .hero-sidebar-chevron {
-        transition: transform 180ms ease;
-      }
-
-      .hero-sidebar[data-open="true"] .hero-sidebar-chevron {
-        transform: rotate(180deg);
-      }
-
-      .hero-nav-list,
-      .hero-sidebar-foot {
         display: none;
-      }
-
-      .hero-sidebar[data-open="true"] .hero-nav-list {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin-top: 12px;
-      }
-
-      .hero-nav-list li {
-        background: rgba(248, 248, 246, 0.62);
-        border: 1px solid transparent;
-        border-radius: 999px;
-        font-size: 0.84rem;
-        margin-bottom: 0;
-        padding: 5px 10px;
-      }
-
-      .hero-nav-list li:first-child {
-        background: rgba(109, 128, 166, 0.12);
-        border-color: rgba(109, 128, 166, 0.22);
-      }
-
-      .hero-sidebar[data-open="true"] .hero-sidebar-foot {
-        background: rgba(248, 248, 246, 0.48);
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        display: flex;
-        gap: 11px;
-        justify-content: center;
-        margin-top: 12px;
-        width: max-content;
-        padding: 5px 9px;
       }
 
       .hero-reader {
@@ -774,47 +683,6 @@
       .hero-window {
         border-radius: 14px;
         min-height: 0;
-      }
-
-      .hero-sidebar {
-        display: block;
-        padding: 14px 16px;
-      }
-
-      .hero-sidebar-title {
-        font-size: 0.82rem;
-        margin-bottom: 0;
-      }
-
-      .hero-sidebar[data-open="true"] .hero-nav-list {
-        display: flex;
-        gap: 8px;
-        grid-template-columns: none;
-        overflow-x: auto;
-        padding-bottom: 2px;
-        scrollbar-width: none;
-      }
-
-      .hero-nav-list::-webkit-scrollbar {
-        display: none;
-      }
-
-      .hero-nav-list li {
-        background: rgba(248, 248, 246, 0.64);
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        flex: 0 0 auto;
-        font-size: 0.76rem;
-        margin: 0;
-        padding: 5px 9px;
-      }
-
-      .hero-sidebar-foot {
-        display: none;
-      }
-
-      .hero-sidebar[data-open="true"] .hero-sidebar-foot {
-        display: none;
       }
 
       .hero-toolbar {
@@ -877,14 +745,11 @@
         <div class="hero-window">
           <aside class="hero-sidebar" aria-label="Example HTTMELY places">
             <div>
-              <button class="hero-sidebar-title" type="button" aria-expanded="true" aria-controls="hero-places-list">
-                <span>
-                  <span class="hero-sidebar-kicker">Places</span>
-                  <span>Welcome</span>
-                </span>
-                <span class="hero-sidebar-chevron" aria-hidden="true">⌄</span>
-              </button>
-              <ul class="hero-nav-list" id="hero-places-list">
+              <div class="hero-sidebar-title">
+                <span>Welcome</span>
+                <span>⌄</span>
+              </div>
+              <ul class="hero-nav-list">
                 <li>Welcome</li>
                 <li>Use Cases</li>
                 <li>Daily Reports</li>
@@ -1118,33 +983,5 @@
       </div>
     </div>
   </footer>
-  <script>
-    (() => {
-      const sidebar = document.querySelector(".hero-sidebar");
-      const toggle = document.querySelector(".hero-sidebar-title");
-      if (!sidebar || !toggle) return;
-
-      const compactQuery = window.matchMedia("(max-width: 920px)");
-      const setOpen = (isOpen) => {
-        sidebar.dataset.open = String(isOpen);
-        toggle.setAttribute("aria-expanded", String(isOpen));
-      };
-      const syncMode = () => {
-        if (compactQuery.matches) {
-          setOpen(false);
-        } else {
-          sidebar.removeAttribute("data-open");
-          toggle.setAttribute("aria-expanded", "true");
-        }
-      };
-
-      toggle.addEventListener("click", () => {
-        if (!compactQuery.matches) return;
-        setOpen(sidebar.dataset.open !== "true");
-      });
-      compactQuery.addEventListener("change", syncMode);
-      syncMode();
-    })();
-  </script>
 </body>
 </html>
