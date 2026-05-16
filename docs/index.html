@@ -3,30 +3,98 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>HTTMELY - Local HTML and Markdown Folder Reader for macOS</title>
-  <meta name="description" content="HTTMELY helps macOS users turn local HTML and Markdown folders into a calm native reader without uploads, accounts, or Finder chaos.">
+  <title>HTTMELY - Local HTML, Markdown, Saved Sites, and Design.md Reader for macOS</title>
+  <meta name="description" content="HTTMELY is a notarized local-first macOS app for browsing folders of HTML, Markdown, saved websites, daily reports, and Design.md collections without uploads or accounts.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="application-name" content="HTTMELY">
+  <meta name="theme-color" content="#d7d7d7">
   <link rel="canonical" href="https://dot-realitytest.github.io/HTMELLY/">
-  <meta property="og:title" content="HTTMELY - Local HTML and Markdown Folder Reader">
-  <meta property="og:description" content="Turn local reports, saved websites, notes, docs, and Design.md collections into a quiet native macOS reader.">
+  <link rel="preload" as="image" href="assets/htmelly-welcome-window.png">
+  <meta property="og:title" content="HTTMELY - Local Page Collections for macOS">
+  <meta property="og:description" content="Turn HTML folders, Markdown notes, saved websites, daily reports, and Design.md research into calm native macOS page collections.">
   <meta property="og:url" content="https://dot-realitytest.github.io/HTMELLY/">
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="HTTMELY">
+  <meta property="og:locale" content="en_US">
   <meta property="og:image" content="https://dot-realitytest.github.io/HTMELLY/assets/htmelly-welcome-window.png">
+  <meta property="og:image:alt" content="HTTMELY macOS app showing a local Welcome page collection">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="HTTMELY">
-  <meta name="twitter:description" content="A local-first macOS reader for HTML and Markdown folder collections.">
+  <meta name="twitter:title" content="HTTMELY - Local Page Collections for macOS">
+  <meta name="twitter:description" content="A notarized local-first macOS reader for HTML, Markdown, saved sites, reports, and Design.md collections.">
   <meta name="twitter:image" content="https://dot-realitytest.github.io/HTMELLY/assets/htmelly-welcome-window.png">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "HTTMELY",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "macOS 14+",
-    "description": "A local-first macOS app for reading folders of HTML and Markdown pages in a native AppKit/WKWebView reader.",
-    "softwareVersion": "1.0.0",
-    "license": "https://github.com/dot-RealityTest/HTMELLY/blob/main/LICENSE",
-    "downloadUrl": "https://github.com/dot-RealityTest/HTMELLY/releases/download/v1.0.0/HTTMELY-1.0.0.dmg",
-    "codeRepository": "https://github.com/dot-RealityTest/HTMELLY"
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://dot-realitytest.github.io/HTMELLY/#website",
+        "name": "HTTMELY",
+        "url": "https://dot-realitytest.github.io/HTMELLY/",
+        "description": "Official HTTMELY landing page for the local-first macOS HTML and Markdown folder reader.",
+        "inLanguage": "en-US"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://dot-realitytest.github.io/HTMELLY/#software",
+        "name": "HTTMELY",
+        "alternateName": "HTMELLY",
+        "applicationCategory": "DeveloperApplication",
+        "applicationSubCategory": "Local HTML and Markdown reader",
+        "operatingSystem": "macOS 14+",
+        "description": "HTTMELY is a notarized local-first macOS app for browsing folders of HTML, Markdown, saved websites, daily reports, project packets, and Design.md collections in a native AppKit/WKWebView reader.",
+        "softwareVersion": "1.0.0",
+        "license": "https://github.com/dot-RealityTest/HTMELLY/blob/main/LICENSE",
+        "downloadUrl": "https://github.com/dot-RealityTest/HTMELLY/releases/download/v1.0.0/HTTMELY-1.0.0.dmg",
+        "codeRepository": "https://github.com/dot-RealityTest/HTMELLY",
+        "url": "https://dot-realitytest.github.io/HTMELLY/",
+        "image": [
+          "https://dot-realitytest.github.io/HTMELLY/assets/htmelly-welcome-window.png",
+          "https://dot-realitytest.github.io/HTMELLY/assets/htmelly-design-md.png",
+          "https://dot-realitytest.github.io/HTMELLY/assets/htmelly-saved-sites.png",
+          "https://dot-realitytest.github.io/HTMELLY/assets/htmelly-reports-overview.png"
+        ],
+        "screenshot": "https://dot-realitytest.github.io/HTMELLY/assets/htmelly-welcome-window.png",
+        "keywords": "macOS HTML reader, Markdown folder reader, local-first app, saved websites, Design.md, daily reports, offline documentation",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "url": "https://github.com/dot-RealityTest/HTMELLY/releases/tag/v1.0.0"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://dot-realitytest.github.io/HTMELLY/#faq-schema",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is HTTMELY a reports app?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Reports are one use case. HTTMELY is a general local-first macOS reader for folders of HTML and Markdown pages."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does HTTMELY change my files?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Reading pages and saving Places does not move or rewrite source files. Export and archive actions are explicit."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can AI tools write pages for HTTMELY?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Any script or assistant can generate local HTML or Markdown pages, and HTTMELY opens the output folder as a local collection."
+            }
+          }
+        ]
+      }
+    ]
   }
   </script>
   <style>
@@ -838,7 +906,7 @@
           <span class="section-label">Who It Helps</span>
           <h2 id="use-cases-title">One reader, several local workflows.</h2>
         </div>
-        <p class="section-lede">The landing story follows the custom-page idea: each audience gets a different reason to care, but the app stays simple.</p>
+        <p class="section-lede">Each workflow keeps its own shape, while HTTMELY stays simple: choose a folder, save it as a Place, and read the pages locally.</p>
       </div>
       <div class="wrap use-grid">
         <article class="use-card">

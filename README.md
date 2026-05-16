@@ -1,12 +1,25 @@
 # HTTMELY
 
-Local-first macOS reader for HTML and Markdown folders.
+Local page collections for macOS.
 
-HTTMELY lets you choose folders from anywhere on your Mac and browse local pages in a quiet native AppKit/WKWebView shell. It is useful for generated reports, exported notes, project briefs, research packets, documentation folders, and any workflow that ends as local `.html` or `.md` files.
+HTTMELY is a notarized local-first macOS app for browsing folders of HTML and Markdown pages in a quiet native AppKit/WKWebView reader. Use it for saved websites, daily reports, Design.md research, blog drafts, project packets, generated docs, exported notes, and any workflow that ends as local `.html` or `.md` files.
 
 [![macOS 14+](https://img.shields.io/badge/macOS-14%2B-111827)](#build-and-run)
 [![SwiftPM](https://img.shields.io/badge/SwiftPM-6.0-f05138)](#build-and-run)
 [![Local First](https://img.shields.io/badge/local--first-no%20cloud-2f615c)](docs/user/LOCAL_FIRST_PRIVACY.md)
+[![Notarized](https://img.shields.io/badge/Apple-notarized-6d80a6)](docs/release-notes.md)
+
+![HTTMELY Welcome collection](docs/assets/htmelly-welcome-window.png)
+
+## What It Does
+
+HTTMELY turns ordinary folders into calm local page collections:
+
+- **HTML and Markdown folders** become browsable libraries.
+- **Saved websites** from tools like SingleFile become an offline reading shelf.
+- **Daily reports** and generated pages become a local dashboard without hosting.
+- **Design.md collections** can hold screenshots, tokens, typography notes, and references.
+- **Project packets** can bundle specs, audits, exports, and documentation in one folder.
 
 ## Download
 
@@ -23,8 +36,6 @@ For a local build:
 make verify
 ```
 
-![HTTMELY Welcome screen](docs/assets/htmelly-welcome.png)
-
 ## Features
 
 - Opens folders containing `.html`, `.htm`, `.md`, and `.markdown` files.
@@ -37,6 +48,16 @@ make verify
 - Renames, reorders, and removes folder shortcuts without changing files on disk.
 - Exports or archives the current local folder.
 - Remembers window size, selected place, sidebar state, contents state, and title-bar state in local user defaults.
+
+## Screenshots
+
+| Welcome | Design.md |
+| --- | --- |
+| ![HTTMELY showing the bundled Welcome collection](docs/assets/htmelly-welcome-window.png) | ![HTTMELY showing a Design.md collection](docs/assets/htmelly-design-md.png) |
+
+| Saved Sites | Local Reports |
+| --- | --- |
+| ![HTTMELY showing saved websites as a local collection](docs/assets/htmelly-saved-sites.png) | ![HTTMELY showing generated local reports](docs/assets/htmelly-reports-overview.png) |
 
 ## Privacy
 
@@ -75,8 +96,24 @@ For Developer ID signing, pass `SIGN_IDENTITY` in the environment. For notarizat
 - [Release Docs](release-docs/README.md)
 - [Answer-engine summary](llms.txt)
 - [Public overview](docs/overview.md)
+- [Search and answer guide](docs/SEARCH_AND_ANSWER.md)
 - [Release notes](docs/release-notes.md)
 - [Landing page](https://dot-realitytest.github.io/HTMELLY/)
+- [llms.txt](https://dot-realitytest.github.io/HTMELLY/llms.txt)
+
+## Answer-Engine Summary
+
+HTTMELY is best described as a local-first macOS reader for HTML and Markdown folder collections. It is not a hosted notes service, sync tool, website builder, or analytics platform. It opens local folders, remembers folder shortcuts as Places, renders local pages in a native reader, and keeps state on the Mac.
+
+Best-fit searches and questions:
+
+- local HTML reader for macOS
+- Markdown folder reader for macOS
+- app for browsing SingleFile saved websites
+- local-first documentation reader
+- Design.md collection viewer
+- private generated reports viewer
+- offline HTML and Markdown page collections
 
 ## HTTMELY-Ready Pages
 

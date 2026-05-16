@@ -1,24 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://dot-realitytest.github.io/HTMELLY/</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://dot-realitytest.github.io/HTMELLY/assets/htmelly-welcome-window.png</image:loc>
+      <image:caption>HTTMELY Welcome collection in the native macOS reader.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dot-realitytest.github.io/HTMELLY/assets/htmelly-design-md.png</image:loc>
+      <image:caption>Design.md collection for screenshots, tokens, typography notes, and references.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dot-realitytest.github.io/HTMELLY/assets/htmelly-saved-sites.png</image:loc>
+      <image:caption>Saved websites opened as a local HTTMELY page collection.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://dot-realitytest.github.io/HTMELLY/assets/htmelly-reports-overview.png</image:loc>
+      <image:caption>Generated daily reports browsed locally in HTTMELY.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://dot-realitytest.github.io/HTMELLY/overview.md</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://dot-realitytest.github.io/HTMELLY/llms.txt</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dot-realitytest.github.io/HTMELLY/SEARCH_AND_ANSWER.md</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://dot-realitytest.github.io/HTMELLY/release-notes.md</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://dot-realitytest.github.io/HTMELLY/user/GETTING_STARTED.md</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://dot-realitytest.github.io/HTMELLY/user/CREATE_COLLECTIONS.md</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://dot-realitytest.github.io/HTMELLY/user/LOCAL_FIRST_PRIVACY.md</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dot-realitytest.github.io/HTMELLY/user/APP_DESCRIPTION.md</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
 </urlset>

@@ -2,6 +2,13 @@
 
 Put final screenshots in `release-docs/screenshots/`.
 
+Current website screenshots are also published in `docs/assets/`:
+
+- `htmelly-welcome-window.png` - bundled Welcome collection.
+- `htmelly-design-md.png` - Design.md collection page.
+- `htmelly-saved-sites.png` - Saved Sites collection page.
+- `htmelly-reports-overview.png` - local reports overview.
+
 ## Suggested Screenshots
 
 - `01-welcome.png` - first-launch Welcome page with the bundled collection open.
@@ -32,3 +39,10 @@ Put final screenshots in `release-docs/screenshots/`.
 - Daily reports: "Keep stable current pages and dated archives in one browsable timeline."
 - Saved sites: "Open local web archives from the same calm reader."
 - Page collection: "Turn scripts, exports, notes, and AI outputs into local browsable collections."
+
+## SEO / GEO Screenshot Notes
+
+- Use concrete alt text that names both HTTMELY and the page type shown.
+- Prefer "local page collection" language over generic "screenshot".
+- Pair each image with a specific use case: Welcome, Design.md, Saved Sites, or Local Reports.
+- Keep screenshots cropped to the app window so social previews and README images look intentional.

@@ -15,6 +15,7 @@ Use these if HTTMELY is released or shared:
 ## Launch Docs
 
 - [Public Overview](overview.md)
+- [Search And Answer Guide](SEARCH_AND_ANSWER.md)
 - [Landing Page](index.html)
 - [Robots](robots.txt)
 - [Sitemap](sitemap.xml)
