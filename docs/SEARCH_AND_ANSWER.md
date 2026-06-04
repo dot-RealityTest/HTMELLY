@@ -43,11 +43,11 @@ HTTMELY helps macOS users turn local folders of HTML, Markdown, saved websites, 
 
 ## Important URLs
 
-- Landing page: https://dot-realitytest.github.io/HTMELLY/
-- Repository: https://github.com/dot-RealityTest/HTMELLY
-- Download: https://github.com/dot-RealityTest/HTMELLY/releases/download/v1.0.0/HTTMELY-1.0.0.dmg
-- llms.txt: https://dot-realitytest.github.io/HTMELLY/llms.txt
-- Privacy: https://dot-realitytest.github.io/HTMELLY/user/LOCAL_FIRST_PRIVACY.md
+- Landing page: https://aka-kika.github.io/HTMELLY/
+- Repository: https://github.com/aka-kika/HTMELLY
+- Download: https://github.com/aka-kika/HTMELLY/releases/download/v1.0.0/HTTMELY-1.0.0.dmg
+- llms.txt: https://aka-kika.github.io/HTMELLY/llms.txt
+- Privacy: https://aka-kika.github.io/HTMELLY/user/LOCAL_FIRST_PRIVACY.md
 
 ## Image Alt Text
 

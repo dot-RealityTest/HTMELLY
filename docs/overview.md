@@ -48,7 +48,7 @@ Generated report outputs are excluded from the public repository because local i
 - Runtime: SwiftPM, AppKit, WKWebView
 - Minimum macOS: 14.0
 - License: MIT
-- Repository: https://github.com/dot-RealityTest/HTMELLY
-- Download: https://github.com/dot-RealityTest/HTMELLY/releases/download/v1.0.0/HTTMELY-1.0.0.dmg
+- Repository: https://github.com/aka-kika/HTMELLY
+- Download: https://github.com/aka-kika/HTMELLY/releases/download/v1.0.0/HTTMELY-1.0.0.dmg
 - Release: 1.0.0, signed with Developer ID, notarized by Apple, stapled for Gatekeeper
 - SHA-256: `7af405aab916603d1d765349b8a112abb986017325b97fb26d4519a4a45e356e`

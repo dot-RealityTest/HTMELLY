@@ -4,7 +4,7 @@ HTTMELY 1.0.0 is a local-first macOS reader for folders of HTML and Markdown pag
 
 ## Download
 
-- [HTTMELY-1.0.0.dmg](https://github.com/dot-RealityTest/HTMELLY/releases/download/v1.0.0/HTTMELY-1.0.0.dmg)
+- [HTTMELY-1.0.0.dmg](https://github.com/aka-kika/HTMELLY/releases/download/v1.0.0/HTTMELY-1.0.0.dmg)
 - SHA-256: `7af405aab916603d1d765349b8a112abb986017325b97fb26d4519a4a45e356e`
 
 The DMG is signed with Developer ID, notarized by Apple, and stapled for Gatekeeper.

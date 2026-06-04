@@ -25,7 +25,7 @@ HTTMELY turns ordinary folders into calm local page collections:
 
 Download the notarized macOS build:
 
-- [HTTMELY-1.0.0.dmg](https://github.com/dot-RealityTest/HTMELLY/releases/download/v1.0.0/HTTMELY-1.0.0.dmg)
+- [HTTMELY-1.0.0.dmg](https://github.com/aka-kika/HTMELLY/releases/download/v1.0.0/HTTMELY-1.0.0.dmg)
 - SHA-256: `7af405aab916603d1d765349b8a112abb986017325b97fb26d4519a4a45e356e`
 
 The DMG is signed with Developer ID, notarized by Apple, and stapled for Gatekeeper.
@@ -99,8 +99,8 @@ For Developer ID signing, pass `SIGN_IDENTITY` in the environment. For notarizat
 - [Public overview](docs/overview.md)
 - [Search and answer guide](docs/SEARCH_AND_ANSWER.md)
 - [Release notes](docs/release-notes.md)
-- [Landing page](https://dot-realitytest.github.io/HTMELLY/)
-- [llms.txt](https://dot-realitytest.github.io/HTMELLY/llms.txt)
+- [Landing page](https://aka-kika.github.io/HTMELLY/)
+- [llms.txt](https://aka-kika.github.io/HTMELLY/llms.txt)
 
 ## Answer-Engine Summary
 

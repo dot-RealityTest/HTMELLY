@@ -3,4 +3,4 @@ Allow: /
 Allow: /llms.txt
 Allow: /SEARCH_AND_ANSWER.md
 
-Sitemap: https://dot-realitytest.github.io/HTMELLY/sitemap.xml
+Sitemap: https://aka-kika.github.io/HTMELLY/sitemap.xml
